@@ -55,6 +55,9 @@ final class WC_Custom_Checkout_Delivery_PE {
 
         // Hide default shipping fields
         add_filter( 'woocommerce_checkout_fields', [ $this, 'remove_default_shipping' ], 5 );
+
+        // Hide default shipping methods from order review (we use custom fees instead)
+        add_filter( 'woocommerce_cart_needs_shipping', '__return_false' );
     }
 
     public function enqueue_assets() {
