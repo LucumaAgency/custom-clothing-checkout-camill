@@ -92,7 +92,7 @@ class WCCDPE_Data {
         return [
             ''                      => '— Selecciona tipo de entrega —',
             'lima_24h'              => 'Lima – Delivery 24 horas',
-            'lima_48h'              => 'Lima – Delivery 48 horas (s/10)',
+            'lima_48h'              => 'Lima – Delivery 48 horas',
             'provincia_shalom'     => 'Provincia – Shalom (s/15)',
             'provincia_olva'       => 'Provincia – Olva Courier (s/15)',
             'recojo_tienda'        => 'Recojo en Tienda (Gratis)',

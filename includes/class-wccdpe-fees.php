@@ -27,9 +27,10 @@ class WCCDPE_Fees {
             case 'lima_24h':
                 $distrito = WC()->session->get( 'wccdpe_lima_distrito' );
                 $prices = WCCDPE_Data::get_lima_districts_with_prices();
+                $label = 'Delivery Lima 24h';
                 if ( $distrito && isset( $prices[ $distrito ] ) ) {
                     $fee = $prices[ $distrito ];
-                    $label = 'Delivery Lima 24h – ' . $distrito;
+                    $label .= ' – ' . $distrito;
                 }
                 break;
 
@@ -54,11 +55,8 @@ class WCCDPE_Fees {
                 break;
         }
 
-        if ( $fee > 0 ) {
+        if ( $tipo ) {
             $cart->add_fee( $label, $fee, false );
-        } elseif ( $tipo === 'recojo_tienda' ) {
-            // Show zero-cost line item
-            $cart->add_fee( $label, 0, false );
         }
     }
 }
