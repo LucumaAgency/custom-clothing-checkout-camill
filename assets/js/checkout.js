@@ -74,11 +74,15 @@
         }
     }
 
+    var isShortcode = wccdpe_data.is_shortcode || false;
+
     /**
      * Trigger WooCommerce checkout update to recalculate totals.
      */
     function triggerUpdateCheckout() {
-        $(document.body).trigger('update_checkout');
+        if ( ! isShortcode ) {
+            $(document.body).trigger('update_checkout');
+        }
     }
 
     // ── Event Handlers ──

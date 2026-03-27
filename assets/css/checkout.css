@@ -116,3 +116,106 @@
 .wccdpe-tipo-entrega-field select {
     font-weight: 600;
 }
+
+/* ── Shortcode form ── */
+.wccdpe-shortcode-form {
+    max-width: 600px;
+}
+
+.wccdpe-shortcode-form .wccdpe-field-group {
+    margin-bottom: 15px;
+}
+
+.wccdpe-shortcode-form .wccdpe-field-group > label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.wccdpe-shortcode-form .wccdpe-select,
+.wccdpe-shortcode-form .wccdpe-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.wccdpe-shortcode-form .wccdpe-select:focus,
+.wccdpe-shortcode-form .wccdpe-input:focus {
+    border-color: #7f54b3;
+    outline: none;
+    box-shadow: 0 0 0 1px #7f54b3;
+}
+
+/* ── Full checkout layout ── */
+.wccdpe-checkout-columns {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.wccdpe-checkout-col--fields {
+    flex: 1;
+    min-width: 0;
+}
+
+.wccdpe-checkout-col--order {
+    flex: 0 0 400px;
+    position: sticky;
+    top: 20px;
+}
+
+.wccdpe-checkout-col--order h3 {
+    margin-top: 0;
+}
+
+@media (max-width: 768px) {
+    .wccdpe-checkout-columns {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .wccdpe-checkout-col--order {
+        flex: 1 1 auto;
+        position: static;
+        width: 100%;
+    }
+}
+
+/* ── Order review wrapper ── */
+#wccdpe-order-review-wrapper h3,
+#wccdpe-payment-wrapper h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* ── Billing fields inside shortcode ── */
+.wccdpe-billing-fields .form-row {
+    margin-bottom: 12px;
+}
+
+/* ── Empty cart ── */
+.wccdpe-empty-cart {
+    padding: 20px;
+    text-align: center;
+    background: #f7f6f7;
+    border-radius: 4px;
+}
+
+.wccdpe-empty-cart .button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #7f54b3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.wccdpe-empty-cart .button:hover {
+    background: #6b4399;
+}

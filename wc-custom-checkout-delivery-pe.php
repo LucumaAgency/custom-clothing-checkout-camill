@@ -49,6 +49,7 @@ final class WC_Custom_Checkout_Delivery_PE {
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-validation.php';
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-order-meta.php';
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-ajax.php';
+        require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-shortcode.php';
 
         // Enqueue scripts/styles
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
@@ -85,6 +86,7 @@ final class WC_Custom_Checkout_Delivery_PE {
             'nonce'             => wp_create_nonce( 'wccdpe_nonce' ),
             'lima_districts'    => WCCDPE_Data::get_lima_districts_with_prices(),
             'ubigeo'            => WCCDPE_Data::get_ubigeo(),
+            'is_shortcode'      => false,
         ] );
     }
 
