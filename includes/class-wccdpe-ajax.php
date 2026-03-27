@@ -19,6 +19,9 @@ class WCCDPE_Ajax {
 
         $distrito = isset( $data['billing_lima_distrito'] ) ? sanitize_text_field( $data['billing_lima_distrito'] ) : '';
         WC()->session->set( 'wccdpe_lima_distrito', $distrito );
+
+        $shalom_sub = isset( $data['billing_shalom_sub_tipo'] ) ? sanitize_text_field( $data['billing_shalom_sub_tipo'] ) : '';
+        WC()->session->set( 'wccdpe_shalom_sub_tipo', $shalom_sub );
     }
 }
 

@@ -33,6 +33,10 @@ class WCCDPE_Validation {
                 if ( empty( $_POST['billing_agencia_shalom'] ) ) {
                     wc_add_notice( 'Por favor ingresa el nombre de la agencia Shalom.', 'error' );
                 }
+                $shalom_sub = isset( $_POST['billing_shalom_sub_tipo'] ) ? sanitize_text_field( $_POST['billing_shalom_sub_tipo'] ) : '';
+                if ( empty( $shalom_sub ) ) {
+                    wc_add_notice( 'Por favor selecciona la modalidad de pago del envío Shalom (prepago o contraentrega).', 'error' );
+                }
                 break;
 
             case 'provincia_olva':

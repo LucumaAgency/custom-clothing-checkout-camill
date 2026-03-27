@@ -127,6 +127,17 @@
         }
     });
 
+    // Shalom: Sub-tipo (prepago / contraentrega)
+    $(document).on('change', 'input[name="billing_shalom_sub_tipo"]', function () {
+        var val = $(this).val();
+        if (val === 'contraentrega') {
+            $('.wccdpe-shalom-contraentrega-info').slideDown(200);
+        } else {
+            $('.wccdpe-shalom-contraentrega-info').slideUp(200);
+        }
+        triggerUpdateCheckout();
+    });
+
     // Olva: Departamento → Provincia
     $(document).on('change', '#billing_olva_departamento', function () {
         var depto = $(this).val();

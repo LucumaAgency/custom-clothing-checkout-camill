@@ -40,8 +40,14 @@ class WCCDPE_Fees {
                 break;
 
             case 'provincia_shalom':
-                $fee = 15;
-                $label = 'Envío Provincia – Shalom';
+                $shalom_sub = WC()->session->get( 'wccdpe_shalom_sub_tipo' );
+                if ( $shalom_sub === 'contraentrega' ) {
+                    $fee = 0;
+                    $label = 'Envío Provincia – Shalom (pago en agencia)';
+                } else {
+                    $fee = 15;
+                    $label = 'Envío Provincia – Shalom';
+                }
                 break;
 
             case 'provincia_olva':

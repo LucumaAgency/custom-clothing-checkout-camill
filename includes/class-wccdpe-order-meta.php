@@ -16,6 +16,7 @@ class WCCDPE_Order_Meta {
         'billing_provincia',
         'billing_distrito_prov',
         'billing_agencia_shalom',
+        'billing_shalom_sub_tipo',
         'billing_olva_departamento',
         'billing_olva_provincia',
         'billing_olva_distrito',
@@ -68,6 +69,7 @@ class WCCDPE_Order_Meta {
             '_billing_provincia'            => 'Provincia',
             '_billing_distrito_prov'        => 'Distrito',
             '_billing_agencia_shalom'       => 'Agencia Shalom',
+            '_billing_shalom_sub_tipo'      => 'Modalidad Shalom',
             '_billing_olva_departamento'    => 'Departamento (Olva)',
             '_billing_olva_provincia'       => 'Provincia (Olva)',
             '_billing_olva_distrito'        => 'Distrito (Olva)',
@@ -107,7 +109,7 @@ class WCCDPE_Order_Meta {
         $conditional_meta = [
             'lima_24h'          => [ '_billing_lima_distrito' => 'Distrito', '_billing_direccion' => 'Dirección', '_billing_referencia' => 'Referencia' ],
             'lima_48h'          => [ '_billing_lima_distrito' => 'Distrito', '_billing_direccion' => 'Dirección', '_billing_referencia' => 'Referencia' ],
-            'provincia_shalom'  => [ '_billing_departamento' => 'Departamento', '_billing_provincia' => 'Provincia', '_billing_distrito_prov' => 'Distrito', '_billing_agencia_shalom' => 'Agencia Shalom' ],
+            'provincia_shalom'  => [ '_billing_departamento' => 'Departamento', '_billing_provincia' => 'Provincia', '_billing_distrito_prov' => 'Distrito', '_billing_agencia_shalom' => 'Agencia Shalom', '_billing_shalom_sub_tipo' => 'Modalidad pago envío' ],
             'provincia_olva'    => [ '_billing_olva_departamento' => 'Departamento', '_billing_olva_provincia' => 'Provincia', '_billing_olva_distrito' => 'Distrito', '_billing_olva_sub_tipo' => 'Tipo recepción', '_billing_olva_direccion' => 'Dirección', '_billing_olva_agencia_nombre' => 'Agencia Olva' ],
             'recojo_tienda'     => [ '_billing_tienda_especifica' => 'Tienda de recojo' ],
         ];

@@ -128,6 +128,21 @@ class WCCDPE_Fields {
             'placeholder' => 'Ej: Agencia Shalom Trujillo Centro',
         ], $checkout->get_value( 'billing_agencia_shalom' ) );
 
+        woocommerce_form_field( 'billing_shalom_sub_tipo', [
+            'type'    => 'radio',
+            'label'   => 'Modalidad de pago del envío',
+            'required'=> false,
+            'class'   => [ 'form-row-wide', 'wccdpe-radio-group', 'wccdpe-radio-inline' ],
+            'options' => [
+                'prepago'       => 'Pago de envío en checkout (s/15)',
+                'contraentrega' => 'Pago de envío en agencia (contraentrega)',
+            ],
+        ], $checkout->get_value( 'billing_shalom_sub_tipo' ) );
+
+        echo '<p class="wccdpe-shalom-contraentrega-info" style="display:none;">';
+        echo '<strong>Contraentrega:</strong> El costo de envío (s/15) se paga directamente en la agencia Shalom al momento de recoger el producto. El producto ya está pagado en esta compra.';
+        echo '</p>';
+
         echo '</div>';
 
         // ── Provincia Olva ──
