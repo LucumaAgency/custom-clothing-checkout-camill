@@ -3,38 +3,51 @@
 /* ── Full checkout layout (2 columns) ── */
 #wccdpe-full-checkout {
     font-family: inherit;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .wccdpe-checkout-columns {
     display: flex;
-    gap: 50px;
-    align-items: flex-start;
+    gap: 0;
+    align-items: stretch;
 }
 
 .wccdpe-checkout-col--fields {
-    flex: 1;
+    flex: 0 0 50%;
+    max-width: 600px;
     min-width: 0;
+    padding: 25px 30px;
+    box-sizing: border-box;
 }
 
 .wccdpe-checkout-col--order {
-    flex: 0 0 420px;
+    flex: 0 0 50%;
+    max-width: 600px;
     position: sticky;
     top: 20px;
     background: #F5F5F5;
     padding: 25px 30px;
-    border-radius: 6px;
+    box-sizing: border-box;
+    align-self: flex-start;
 }
 
-@media (max-width: 768px) {
-    .wccdpe-checkout-columns {
-        flex-direction: column;
-        gap: 30px;
+@media (max-width: 960px) {
+    #wccdpe-full-checkout {
+        max-width: 100%;
     }
 
+    .wccdpe-checkout-columns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .wccdpe-checkout-col--fields,
     .wccdpe-checkout-col--order {
         flex: 1 1 auto;
+        width: 90%;
+        max-width: 90%;
         position: static;
-        width: 100%;
     }
 }
 
