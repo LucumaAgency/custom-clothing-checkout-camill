@@ -152,16 +152,48 @@ class WCCDPE_Shortcode {
         echo '<h3>Detalles de facturaci&oacute;n</h3>';
         echo '<div class="woocommerce-billing-fields">';
 
-        $billing_fields = $checkout->get_checkout_fields( 'billing' );
-        foreach ( $billing_fields as $key => $field ) {
-            if ( $key === 'billing_tipo_entrega' ) {
-                continue;
-            }
-            woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
-        }
+        // Email
+        woocommerce_form_field( 'billing_email', [
+            'type'        => 'email',
+            'label'       => 'Email o n&uacute;mero de contacto',
+            'required'    => true,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'correo@ejemplo.com o 9XXXXXXXX',
+            'autocomplete'=> 'email',
+        ], $checkout->get_value( 'billing_email' ) );
+
+        // Nombre y Apellidos 50/50
+        woocommerce_form_field( 'billing_first_name', [
+            'type'        => 'text',
+            'label'       => 'Nombre',
+            'required'    => true,
+            'class'       => [ 'form-row-first' ],
+            'placeholder' => 'Nombre',
+            'autocomplete'=> 'given-name',
+        ], $checkout->get_value( 'billing_first_name' ) );
+
+        woocommerce_form_field( 'billing_last_name', [
+            'type'        => 'text',
+            'label'       => 'Apellidos',
+            'required'    => true,
+            'class'       => [ 'form-row-last' ],
+            'placeholder' => 'Apellidos',
+            'autocomplete'=> 'family-name',
+        ], $checkout->get_value( 'billing_last_name' ) );
+
+        // Teléfono
+        woocommerce_form_field( 'billing_phone', [
+            'type'        => 'tel',
+            'label'       => 'Tel&eacute;fono',
+            'required'    => true,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Tel&eacute;fono',
+            'autocomplete'=> 'tel',
+        ], $checkout->get_value( 'billing_phone' ) );
 
         echo '</div>';
 
+        // Tipo de entrega (justo después de teléfono)
         $this->output_delivery_fields();
 
         // Información adicional
