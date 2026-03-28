@@ -101,6 +101,7 @@
 }
 
 .wccdpe-tipo-entrega-field select {
+    width: 100% !important;
     font-weight: 400;
     color: #666;
 }

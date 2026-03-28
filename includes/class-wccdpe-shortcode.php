@@ -241,12 +241,15 @@ class WCCDPE_Shortcode {
     private function output_delivery_fields() {
 
         // Tipo de entrega
+        $delivery_options = WCCDPE_Data::get_delivery_types();
+        unset( $delivery_options[''] ); // quitar placeholder duplicado
         woocommerce_form_field( 'billing_tipo_entrega', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => true,
-            'class'    => [ 'form-row-wide', 'wccdpe-tipo-entrega-field' ],
-            'options'  => WCCDPE_Data::get_delivery_types(),
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => true,
+            'class'       => [ 'form-row-wide', 'wccdpe-tipo-entrega-field' ],
+            'placeholder' => '— Selecciona tipo de entrega —',
+            'options'     => $delivery_options,
         ] );
 
         echo '<div id="wccdpe-delivery-fields">';
