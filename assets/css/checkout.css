@@ -3,40 +3,48 @@
 /* ── Full checkout layout (2 columns) ── */
 #wccdpe-full-checkout {
     font-family: inherit;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
+/* Contenedor general: 2 mitades pegadas */
 .wccdpe-checkout-columns {
     display: flex;
     gap: 0;
     align-items: stretch;
 }
 
+/* Contenedor A: 50% izquierdo */
 .wccdpe-checkout-col--fields {
     flex: 0 0 50%;
-    max-width: 600px;
-    min-width: 0;
-    padding: 25px 30px;
+    display: flex;
+    justify-content: flex-end;
     box-sizing: border-box;
 }
 
+/* Contenedor B: 50% derecho, fondo completo */
 .wccdpe-checkout-col--order {
     flex: 0 0 50%;
+    background: #F5F5F5;
+    display: flex;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+/* Contenedores internos de 600px donde va el contenido */
+.wccdpe-checkout-col-inner {
+    width: 100%;
     max-width: 600px;
+    padding: 30px 40px;
+    box-sizing: border-box;
+}
+
+/* Sticky solo en el contenedor interno del order */
+.wccdpe-checkout-col--order .wccdpe-checkout-col-inner {
     position: sticky;
     top: 20px;
-    background: #F5F5F5;
-    padding: 25px 30px;
-    box-sizing: border-box;
     align-self: flex-start;
 }
 
 @media (max-width: 960px) {
-    #wccdpe-full-checkout {
-        max-width: 100%;
-    }
-
     .wccdpe-checkout-columns {
         flex-direction: column;
         align-items: center;
@@ -45,8 +53,16 @@
     .wccdpe-checkout-col--fields,
     .wccdpe-checkout-col--order {
         flex: 1 1 auto;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .wccdpe-checkout-col-inner {
         width: 90%;
         max-width: 90%;
+    }
+
+    .wccdpe-checkout-col--order .wccdpe-checkout-col-inner {
         position: static;
     }
 }

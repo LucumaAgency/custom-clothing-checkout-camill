@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WC Custom Checkout Delivery PE
  * Description: Plugin de checkout personalizado para entregas en Perú. Controla métodos de envío condicionales con precios dinámicos por distrito de Lima, envíos a provincia via Shalom/Olva, y recojo en tienda.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: Clothing Custom
  * Text Domain: wc-custom-checkout-pe
  * Requires Plugins: woocommerce
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'WCCDPE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WCCDPE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'WCCDPE_VERSION', '1.3.0' );
+define( 'WCCDPE_VERSION', '1.4.0' );
 
 /**
  * Main plugin class

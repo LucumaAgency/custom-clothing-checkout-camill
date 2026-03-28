@@ -146,8 +146,9 @@ class WCCDPE_Shortcode {
 
         echo '<div class="wccdpe-checkout-columns">';
 
-        // ── Left: Client data + Delivery ──
+        // ── Contenedor A (50% izquierdo) ──
         echo '<div class="wccdpe-checkout-col wccdpe-checkout-col--fields">';
+        echo '<div class="wccdpe-checkout-col-inner">';
 
         echo '<h3>Detalles de facturaci&oacute;n</h3>';
         echo '<div class="woocommerce-billing-fields">';
@@ -208,10 +209,12 @@ class WCCDPE_Shortcode {
         ], '' );
         echo '</div>';
 
-        echo '</div>';
+        echo '</div>'; // col-inner
+        echo '</div>'; // col--fields
 
-        // ── Right: Order review + Payment ──
+        // ── Contenedor B (50% derecho, fondo #F5F5F5) ──
         echo '<div class="wccdpe-checkout-col wccdpe-checkout-col--order">';
+        echo '<div class="wccdpe-checkout-col-inner">';
 
         echo '<h3 id="order_review_heading">Tu pedido</h3>';
         echo '<div id="order_review" class="woocommerce-checkout-review-order">';
@@ -220,7 +223,8 @@ class WCCDPE_Shortcode {
 
         woocommerce_checkout_payment();
 
-        echo '</div>';
+        echo '</div>'; // col-inner
+        echo '</div>'; // col--order
 
         echo '</div>'; // columns
 
