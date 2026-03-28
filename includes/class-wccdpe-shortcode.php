@@ -149,7 +149,7 @@ class WCCDPE_Shortcode {
         // ── Left: Client data + Delivery ──
         echo '<div class="wccdpe-checkout-col wccdpe-checkout-col--fields">';
 
-        echo '<h3>Datos del cliente</h3>';
+        echo '<h3>Detalles de facturaci&oacute;n</h3>';
         echo '<div class="woocommerce-billing-fields">';
 
         $billing_fields = $checkout->get_checkout_fields( 'billing' );
@@ -162,8 +162,19 @@ class WCCDPE_Shortcode {
 
         echo '</div>';
 
-        echo '<h3>Tipo de entrega</h3>';
         $this->output_delivery_fields();
+
+        // Información adicional
+        echo '<div class="wccdpe-additional-info">';
+        echo '<h3>Informaci&oacute;n adicional</h3>';
+        woocommerce_form_field( 'order_comments', [
+            'type'        => 'textarea',
+            'label'       => 'Notas del pedido (opcional)',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Notas sobre tu pedido, por ejemplo, notas especiales para la entrega.',
+        ], '' );
+        echo '</div>';
 
         echo '</div>';
 
@@ -196,7 +207,7 @@ class WCCDPE_Shortcode {
         // Tipo de entrega
         woocommerce_form_field( 'billing_tipo_entrega', [
             'type'     => 'select',
-            'label'    => 'Tipo de entrega',
+            'label'    => '&nbsp;',
             'required' => true,
             'class'    => [ 'form-row-wide', 'wccdpe-tipo-entrega-field' ],
             'options'  => WCCDPE_Data::get_delivery_types(),

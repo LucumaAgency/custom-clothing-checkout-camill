@@ -1,26 +1,98 @@
 /* ── WC Custom Checkout Delivery PE ── */
 
+/* ── Full checkout layout (2 columns) ── */
+#wccdpe-full-checkout {
+    font-family: inherit;
+}
+
+.wccdpe-checkout-columns {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.wccdpe-checkout-col--fields {
+    flex: 1;
+    min-width: 0;
+}
+
+.wccdpe-checkout-col--order {
+    flex: 0 0 420px;
+    position: sticky;
+    top: 20px;
+}
+
+@media (max-width: 768px) {
+    .wccdpe-checkout-columns {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .wccdpe-checkout-col--order {
+        flex: 1 1 auto;
+        position: static;
+        width: 100%;
+    }
+}
+
+/* ── Headings ── */
+#wccdpe-full-checkout h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    padding: 0;
+    color: #333;
+}
+
+.wccdpe-additional-info {
+    margin-top: 30px;
+}
+
+.wccdpe-additional-info h3 {
+    font-style: italic;
+}
+
+/* ── Billing fields ── */
+.wccdpe-checkout-col--fields .woocommerce-billing-fields .form-row {
+    margin-bottom: 12px;
+}
+
+/* ── Tipo entrega selector ── */
+.wccdpe-tipo-entrega-field {
+    margin-top: 5px;
+}
+
+.wccdpe-tipo-entrega-field label {
+    display: none !important;
+}
+
+.wccdpe-tipo-entrega-field select {
+    font-weight: 400;
+    color: #666;
+}
+
+/* ── Delivery groups ── */
 #wccdpe-delivery-fields {
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 #wccdpe-delivery-fields .wccdpe-group {
-    padding: 15px 0;
-    border-top: 1px solid #e5e5e5;
+    padding: 15px 0 5px;
+    border-top: 1px solid #e8e8e8;
 }
 
-/* Radio groups styling */
+/* ── Radio groups ── */
 .wccdpe-radio-group label {
     display: block;
-    padding: 8px 0;
+    padding: 6px 0;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .wccdpe-radio-group input[type="radio"] {
     margin-right: 8px;
 }
 
-/* Inline radio: hide title label, each option = one row (input + text on same line) */
 .wccdpe-radio-inline > label:first-child {
     display: none;
 }
@@ -36,16 +108,18 @@
     display: block;
 }
 
-/* District price notice */
+/* ── District price notice ── */
 .wccdpe-distrito-price {
-    background: #f7f6f7;
+    background: #f9f7fb;
     padding: 10px 15px;
     border-left: 3px solid #7f54b3;
     margin: 10px 0;
     font-weight: 600;
+    font-size: 14px;
+    border-radius: 0 4px 4px 0;
 }
 
-/* Store info blocks */
+/* ── Store info blocks ── */
 .wccdpe-tienda-info {
     background: #f9f9f9;
     padding: 12px 16px;
@@ -69,9 +143,9 @@
     font-size: 13px;
 }
 
-/* Pickup info */
+/* ── Pickup info ── */
 .wccdpe-recojo-info {
-    background: #e8f5e9;
+    background: #f0f7f0;
     padding: 10px 15px;
     border-radius: 4px;
     margin: 12px 0;
@@ -79,81 +153,171 @@
     line-height: 1.6;
 }
 
-/* Shalom contraentrega info */
+/* ── Shalom contraentrega info ── */
 .wccdpe-shalom-contraentrega-info {
-    background: #fff3e0;
+    background: #fff8f0;
     padding: 10px 15px;
-    border-left: 3px solid #ff9800;
-    border-radius: 4px;
+    border-left: 3px solid #e8a735;
+    border-radius: 0 4px 4px 0;
     margin: 12px 0;
     font-size: 13px;
     line-height: 1.6;
 }
 
-/* Bottom info text */
+/* ── Info text (yellow box) ── */
 .wccdpe-info-text {
-    background: #fff8e1;
-    border-left: 3px solid #ffc107;
-    padding: 12px 16px;
-    margin: 20px 0;
+    background: #fef9ec;
+    border-left: 4px solid #e8a735;
+    padding: 15px 18px;
+    margin: 25px 0 0;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.7;
+    border-radius: 0 4px 4px 0;
+    color: #5a5a5a;
 }
 
 .wccdpe-info-text p {
-    margin: 0 0 6px;
+    margin: 0 0 4px;
 }
 
 .wccdpe-info-text p:last-child {
     margin-bottom: 0;
+    font-style: italic;
 }
 
-/* Tipo entrega selector emphasis */
-.wccdpe-tipo-entrega-field {
-    margin-top: 10px;
-}
-
-.wccdpe-tipo-entrega-field select {
-    font-weight: 600;
-}
-
-/* ── Full checkout layout ── */
-.wccdpe-checkout-columns {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-}
-
-.wccdpe-checkout-col--fields {
-    flex: 1;
-    min-width: 0;
-}
-
-.wccdpe-checkout-col--order {
-    flex: 0 0 400px;
-    position: sticky;
-    top: 20px;
-}
-
+/* ── Order review column (right) ── */
 .wccdpe-checkout-col--order h3 {
     margin-top: 0;
+    font-size: 22px;
 }
 
-@media (max-width: 768px) {
-    .wccdpe-checkout-columns {
-        flex-direction: column;
-        gap: 20px;
-    }
+/* Order review table */
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+    margin-bottom: 0;
+}
 
-    .wccdpe-checkout-col--order {
-        flex: 1 1 auto;
-        position: static;
-        width: 100%;
-    }
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table th {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    padding: 12px 0;
+    border-bottom: 2px solid #e8e8e8;
+    text-align: left;
+    background: transparent;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table th:last-child {
+    text-align: right;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table td {
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    vertical-align: top;
+    background: transparent;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table td:last-child {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Product name link */
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name {
+    color: #7f54b3;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name a {
+    color: #7f54b3;
+    text-decoration: none;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name a:hover {
+    color: #6b4399;
+    text-decoration: underline;
+}
+
+/* Quantity */
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-quantity {
+    font-weight: 700;
+}
+
+/* Subtotal & Total rows */
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot th,
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot td {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    background: transparent;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot tr:last-child th,
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot tr:last-child td {
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: none;
+    padding-top: 14px;
+}
+
+/* ── Payment methods ── */
+.wccdpe-checkout-col--order .woocommerce-checkout-payment {
+    background: transparent;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.wccdpe-checkout-col--order .wc_payment_methods {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.wccdpe-checkout-col--order .wc_payment_method {
+    padding: 0;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.wccdpe-checkout-col--order .wc_payment_method label {
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.wccdpe-checkout-col--order .wc_payment_method input[type="radio"] {
+    margin-right: 8px;
+}
+
+.wccdpe-checkout-col--order .payment_box {
+    background: transparent;
+    padding: 10px 0 10px 24px;
+    font-size: 13px;
+    color: #666;
+    border: none;
+}
+
+.wccdpe-checkout-col--order .payment_box::before {
+    display: none;
+}
+
+/* Place order button */
+.wccdpe-checkout-col--order #place_order {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 4px;
 }
 
 /* ── Empty cart ── */
 .wccdpe-empty-cart {
-    padding: 20px;
+    padding: 30px;
     text-align: center;
+    color: #666;
 }
