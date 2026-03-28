@@ -17,6 +17,7 @@
     flex: 0 0 50%;
     display: flex;
     justify-content: flex-end;
+    padding-left: 40px;
     box-sizing: border-box;
 }
 
@@ -26,6 +27,7 @@
     background: #F5F5F5;
     display: flex;
     justify-content: flex-start;
+    padding-right: 40px;
     box-sizing: border-box;
 }
 

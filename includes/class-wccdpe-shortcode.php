@@ -202,7 +202,7 @@ class WCCDPE_Shortcode {
         echo '<h3>Informaci&oacute;n adicional</h3>';
         woocommerce_form_field( 'order_comments', [
             'type'        => 'textarea',
-            'label'       => 'Notas del pedido (opcional)',
+            'label'       => 'Notas del pedido',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
             'placeholder' => 'Notas sobre tu pedido, por ejemplo, notas especiales para la entrega.',
