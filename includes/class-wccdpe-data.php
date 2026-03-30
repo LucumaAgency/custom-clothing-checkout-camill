@@ -105,7 +105,6 @@ class WCCDPE_Data {
      */
     public static function get_delivery_types() {
         return [
-            ''                      => 'Selecciona',
             'lima_24h'              => 'Lima – Delivery 24 horas',
             'lima_48h'              => 'Lima – Delivery 48 horas',
             'provincia_shalom'     => 'Provincia – Shalom (s/15)',

@@ -242,7 +242,6 @@ class WCCDPE_Shortcode {
 
         // Tipo de entrega
         $delivery_options = WCCDPE_Data::get_delivery_types();
-        unset( $delivery_options[''] ); // quitar placeholder duplicado
         woocommerce_form_field( 'billing_tipo_entrega', [
             'type'        => 'select',
             'label'       => '&nbsp;',
@@ -259,20 +258,18 @@ class WCCDPE_Shortcode {
         echo '<div class="wccdpe-group" data-show="lima_24h,lima_48h" style="display:none;">';
 
         $lima_districts = WCCDPE_Data::get_lima_districts_with_prices();
-        $lima_options = array_merge(
-            [ '' => 'Selecciona' ],
-            array_combine(
-                array_keys( $lima_districts ),
-                array_keys( $lima_districts )
-            )
+        $lima_options = array_combine(
+            array_keys( $lima_districts ),
+            array_keys( $lima_districts )
         );
 
         woocommerce_form_field( 'billing_lima_distrito', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => false,
-            'class'    => [ 'form-row-wide' ],
-            'options'  => $lima_options,
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Distrito',
+            'options'     => $lima_options,
         ] );
 
         echo '<p class="wccdpe-distrito-price" style="display:none;"></p>';
@@ -294,12 +291,12 @@ class WCCDPE_Shortcode {
         ] );
 
         woocommerce_form_field( 'billing_vivienda', [
-            'type'    => 'select',
-            'label'   => '&nbsp;',
-            'required'=> false,
-            'class'   => [ 'form-row-wide' ],
-            'options' => [
-                ''           => 'Tipo de vivienda',
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Tipo de vivienda',
+            'options'     => [
                 'casa'       => 'Casa',
                 'apartamento'=> 'Apartamento',
                 'interior'   => 'Interior / Oficina',
@@ -312,27 +309,30 @@ class WCCDPE_Shortcode {
         echo '<div class="wccdpe-group" data-show="provincia_shalom" style="display:none;">';
 
         woocommerce_form_field( 'billing_departamento', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => false,
-            'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Departamento' ],
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Departamento',
+            'options'     => [],
         ] );
 
         woocommerce_form_field( 'billing_provincia', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => false,
-            'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Provincia' ],
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Provincia',
+            'options'     => [],
         ] );
 
         woocommerce_form_field( 'billing_distrito_prov', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => false,
-            'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Distrito' ],
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Distrito',
+            'options'     => [],
         ] );
 
         woocommerce_form_field( 'billing_agencia_shalom', [
@@ -364,27 +364,30 @@ class WCCDPE_Shortcode {
         echo '<div class="wccdpe-group" data-show="provincia_olva" style="display:none;">';
 
         woocommerce_form_field( 'billing_olva_departamento', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => false,
-            'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Departamento' ],
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Departamento',
+            'options'     => [],
         ] );
 
         woocommerce_form_field( 'billing_olva_provincia', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => false,
-            'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Provincia' ],
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Provincia',
+            'options'     => [],
         ] );
 
         woocommerce_form_field( 'billing_olva_distrito', [
-            'type'     => 'select',
-            'label'    => '&nbsp;',
-            'required' => false,
-            'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Distrito' ],
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Distrito',
+            'options'     => [],
         ] );
 
         woocommerce_form_field( 'billing_olva_sub_tipo', [
@@ -436,17 +439,18 @@ class WCCDPE_Shortcode {
         echo '<div class="wccdpe-group" data-show="recojo_tienda" style="display:none;">';
 
         $tiendas = WCCDPE_Data::get_tiendas();
-        $tienda_options = [ '' => 'Selecciona' ];
+        $tienda_options = [];
         foreach ( $tiendas as $loc ) {
             $tienda_options[ $loc ] = $loc;
         }
 
         woocommerce_form_field( 'billing_tienda_especifica', [
-            'type'    => 'select',
-            'label'   => '&nbsp;',
-            'required'=> false,
-            'class'   => [ 'form-row-wide', 'wccdpe-tienda-select' ],
-            'options' => $tienda_options,
+            'type'        => 'select',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide', 'wccdpe-tienda-select' ],
+            'placeholder' => 'Selecciona tienda',
+            'options'     => $tienda_options,
         ] );
 
         echo '<p class="wccdpe-recojo-info">';
