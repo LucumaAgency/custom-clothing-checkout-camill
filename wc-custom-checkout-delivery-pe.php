@@ -42,62 +42,18 @@ final class WC_Custom_Checkout_Delivery_PE {
             return;
         }
 
-        // Load data helpers
+        // Load classes
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-data.php';
-        require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-fields.php';
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-fees.php';
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-validation.php';
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-order-meta.php';
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-ajax.php';
         require_once WCCDPE_PLUGIN_DIR . 'includes/class-wccdpe-shortcode.php';
 
-        // Enqueue scripts/styles
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-
-        // Hide default shipping fields
-        add_filter( 'woocommerce_checkout_fields', [ $this, 'remove_default_shipping' ], 5 );
-
         // Hide default shipping methods from order review (we use custom fees instead)
         add_filter( 'woocommerce_cart_needs_shipping', '__return_false' );
     }
 
-    public function enqueue_assets() {
-        if ( ! is_checkout() ) {
-            return;
-        }
-
-        wp_enqueue_style(
-            'wccdpe-checkout',
-            WCCDPE_PLUGIN_URL . 'assets/css/checkout.css',
-            [],
-            WCCDPE_VERSION
-        );
-
-        wp_enqueue_script(
-            'wccdpe-checkout',
-            WCCDPE_PLUGIN_URL . 'assets/js/checkout.js',
-            [ 'jquery', 'wc-checkout' ],
-            WCCDPE_VERSION,
-            true
-        );
-
-        wp_localize_script( 'wccdpe-checkout', 'wccdpe_data', [
-            'ajax_url'          => admin_url( 'admin-ajax.php' ),
-            'nonce'             => wp_create_nonce( 'wccdpe_nonce' ),
-            'lima_districts'    => WCCDPE_Data::get_lima_districts_with_prices(),
-            'ubigeo'            => WCCDPE_Data::get_ubigeo(),
-            'is_shortcode'      => false,
-        ] );
-    }
-
-    /**
-     * Remove default WooCommerce shipping fields since we handle everything custom.
-     */
-    public function remove_default_shipping( $fields ) {
-        // Keep billing but remove shipping section entirely
-        unset( $fields['shipping'] );
-        return $fields;
-    }
 }
 
 WC_Custom_Checkout_Delivery_PE::instance();
