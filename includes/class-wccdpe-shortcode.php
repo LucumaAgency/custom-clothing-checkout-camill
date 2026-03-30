@@ -156,17 +156,17 @@ class WCCDPE_Shortcode {
         // Email
         woocommerce_form_field( 'billing_email', [
             'type'        => 'email',
-            'label'       => 'Email o n&uacute;mero de contacto',
+            'label'       => '&nbsp;',
             'required'    => true,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'correo@ejemplo.com o 9XXXXXXXX',
+            'placeholder' => 'Email o número de contacto',
             'autocomplete'=> 'email',
         ], $checkout->get_value( 'billing_email' ) );
 
         // Nombre y Apellidos 50/50
         woocommerce_form_field( 'billing_first_name', [
             'type'        => 'text',
-            'label'       => 'Nombre',
+            'label'       => '&nbsp;',
             'required'    => true,
             'class'       => [ 'form-row-first' ],
             'placeholder' => 'Nombre',
@@ -175,7 +175,7 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_last_name', [
             'type'        => 'text',
-            'label'       => 'Apellidos',
+            'label'       => '&nbsp;',
             'required'    => true,
             'class'       => [ 'form-row-last' ],
             'placeholder' => 'Apellidos',
@@ -185,10 +185,10 @@ class WCCDPE_Shortcode {
         // Teléfono
         woocommerce_form_field( 'billing_phone', [
             'type'        => 'tel',
-            'label'       => 'Tel&eacute;fono',
+            'label'       => '&nbsp;',
             'required'    => true,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Tel&eacute;fono',
+            'placeholder' => 'Teléfono',
             'autocomplete'=> 'tel',
         ], $checkout->get_value( 'billing_phone' ) );
 
@@ -202,10 +202,10 @@ class WCCDPE_Shortcode {
         echo '<h3>Informaci&oacute;n adicional</h3>';
         woocommerce_form_field( 'order_comments', [
             'type'        => 'textarea',
-            'label'       => 'Notas del pedido',
+            'label'       => '&nbsp;',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Notas sobre tu pedido, por ejemplo, notas especiales para la entrega.',
+            'placeholder' => 'Notas del pedido (ej: notas especiales para la entrega)',
         ], '' );
         echo '</div>';
 
@@ -269,7 +269,7 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_lima_distrito', [
             'type'     => 'select',
-            'label'    => 'Distrito de Lima',
+            'label'    => '&nbsp;',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
             'options'  => $lima_options,
@@ -279,27 +279,27 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_direccion', [
             'type'        => 'text',
-            'label'       => 'Dirección',
+            'label'       => '&nbsp;',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Av. / Jr. / Calle y número',
+            'placeholder' => 'Dirección (Av. / Jr. / Calle y número)',
         ] );
 
         woocommerce_form_field( 'billing_referencia', [
             'type'        => 'text',
-            'label'       => 'Referencia',
+            'label'       => '&nbsp;',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Cerca de...',
+            'placeholder' => 'Referencia (Cerca de...)',
         ] );
 
         woocommerce_form_field( 'billing_vivienda', [
             'type'    => 'select',
-            'label'   => 'Tipo de vivienda',
+            'label'   => '&nbsp;',
             'required'=> false,
             'class'   => [ 'form-row-wide' ],
             'options' => [
-                ''           => 'Selecciona',
+                ''           => 'Tipo de vivienda',
                 'casa'       => 'Casa',
                 'apartamento'=> 'Apartamento',
                 'interior'   => 'Interior / Oficina',
@@ -313,34 +313,34 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_departamento', [
             'type'     => 'select',
-            'label'    => 'Departamento',
+            'label'    => '&nbsp;',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Selecciona' ],
+            'options'  => [ '' => 'Departamento' ],
         ] );
 
         woocommerce_form_field( 'billing_provincia', [
             'type'     => 'select',
-            'label'    => 'Provincia',
+            'label'    => '&nbsp;',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Selecciona' ],
+            'options'  => [ '' => 'Provincia' ],
         ] );
 
         woocommerce_form_field( 'billing_distrito_prov', [
             'type'     => 'select',
-            'label'    => 'Distrito',
+            'label'    => '&nbsp;',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Selecciona' ],
+            'options'  => [ '' => 'Distrito' ],
         ] );
 
         woocommerce_form_field( 'billing_agencia_shalom', [
             'type'        => 'text',
-            'label'       => 'Nombre de Agencia Shalom',
+            'label'       => '&nbsp;',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Ej: Agencia Shalom Trujillo Centro',
+            'placeholder' => 'Nombre de Agencia Shalom',
         ] );
 
         woocommerce_form_field( 'billing_shalom_sub_tipo', [
@@ -365,26 +365,26 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_olva_departamento', [
             'type'     => 'select',
-            'label'    => 'Departamento',
+            'label'    => '&nbsp;',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Selecciona' ],
+            'options'  => [ '' => 'Departamento' ],
         ] );
 
         woocommerce_form_field( 'billing_olva_provincia', [
             'type'     => 'select',
-            'label'    => 'Provincia',
+            'label'    => '&nbsp;',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Selecciona' ],
+            'options'  => [ '' => 'Provincia' ],
         ] );
 
         woocommerce_form_field( 'billing_olva_distrito', [
             'type'     => 'select',
-            'label'    => 'Distrito',
+            'label'    => '&nbsp;',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => 'Selecciona' ],
+            'options'  => [ '' => 'Distrito' ],
         ] );
 
         woocommerce_form_field( 'billing_olva_sub_tipo', [
@@ -402,18 +402,18 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_olva_direccion', [
             'type'        => 'text',
-            'label'       => 'Dirección',
+            'label'       => '&nbsp;',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Av. / Jr. / Calle y número',
+            'placeholder' => 'Dirección (Av. / Jr. / Calle y número)',
         ] );
 
         woocommerce_form_field( 'billing_olva_referencia', [
             'type'        => 'text',
-            'label'       => 'Referencia',
+            'label'       => '&nbsp;',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Cerca de...',
+            'placeholder' => 'Referencia (Cerca de...)',
         ] );
 
         echo '</div>';
@@ -422,10 +422,10 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_olva_agencia_nombre', [
             'type'        => 'text',
-            'label'       => 'Nombre de Agencia Olva',
+            'label'       => '&nbsp;',
             'required'    => false,
             'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Ej: Olva Courier Chiclayo',
+            'placeholder' => 'Nombre de Agencia Olva',
         ] );
 
         echo '</div>';
@@ -443,7 +443,7 @@ class WCCDPE_Shortcode {
 
         woocommerce_form_field( 'billing_tienda_especifica', [
             'type'    => 'select',
-            'label'   => 'Selecciona la tienda para recojo',
+            'label'   => '&nbsp;',
             'required'=> false,
             'class'   => [ 'form-row-wide', 'wccdpe-tienda-select' ],
             'options' => $tienda_options,

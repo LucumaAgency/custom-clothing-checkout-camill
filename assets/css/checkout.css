@@ -86,6 +86,23 @@
     font-style: italic;
 }
 
+/* ── Form fields: hide labels, style inputs ── */
+#wccdpe-full-checkout .form-row label:not(.checkbox),
+#wccdpe-full-checkout .woocommerce-billing-fields label {
+    display: none !important;
+}
+
+#wccdpe-full-checkout input[type="text"],
+#wccdpe-full-checkout input[type="email"],
+#wccdpe-full-checkout input[type="tel"],
+#wccdpe-full-checkout input[type="number"],
+#wccdpe-full-checkout select,
+#wccdpe-full-checkout textarea {
+    border: 1px solid #dddedf !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
 /* ── Billing fields ── */
 .wccdpe-checkout-col--fields .woocommerce-billing-fields .form-row {
     margin-bottom: 12px;
@@ -96,12 +113,7 @@
     margin-top: 5px;
 }
 
-.wccdpe-tipo-entrega-field label {
-    display: none !important;
-}
-
 .wccdpe-tipo-entrega-field select {
-    width: 100% !important;
     font-weight: 400;
     color: #666;
 }
@@ -109,6 +121,10 @@
 /* ── Delivery groups ── */
 #wccdpe-delivery-fields {
     margin-top: 10px;
+}
+
+#wccdpe-delivery-fields .form-row > label {
+    display: none !important;
 }
 
 #wccdpe-delivery-fields .wccdpe-group {
