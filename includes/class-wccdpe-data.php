@@ -67,12 +67,27 @@ class WCCDPE_Data {
      * Departamento => Provincia => [Distritos]
      */
     public static function get_ubigeo() {
+        static $cache = null;
+        if ( $cache !== null ) {
+            return $cache;
+        }
+
+        $cache = get_transient( 'wccdpe_ubigeo' );
+        if ( $cache !== false ) {
+            return $cache;
+        }
+
         $file = WCCDPE_PLUGIN_DIR . 'includes/data/ubigeo.json';
         if ( file_exists( $file ) ) {
-            $json = file_get_contents( $file );
-            return json_decode( $json, true );
+            $cache = json_decode( file_get_contents( $file ), true );
+            if ( is_array( $cache ) ) {
+                set_transient( 'wccdpe_ubigeo', $cache, 7 * DAY_IN_SECONDS );
+                return $cache;
+            }
         }
-        return [];
+
+        $cache = [];
+        return $cache;
     }
 
     /**
@@ -90,7 +105,7 @@ class WCCDPE_Data {
      */
     public static function get_delivery_types() {
         return [
-            ''                      => '— Selecciona tipo de entrega —',
+            ''                      => 'Selecciona',
             'lima_24h'              => 'Lima – Delivery 24 horas',
             'lima_48h'              => 'Lima – Delivery 48 horas',
             'provincia_shalom'     => 'Provincia – Shalom (s/15)',

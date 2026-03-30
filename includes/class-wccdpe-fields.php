@@ -41,6 +41,7 @@ class WCCDPE_Fields {
      */
     public function render_delivery_fields( $checkout ) {
         echo '<div id="wccdpe-delivery-fields">';
+        wp_nonce_field( 'wccdpe_nonce', 'wccdpe_nonce', false );
 
         // ── Lima fields (24h & 48h) ──
         echo '<div class="wccdpe-group" data-show="lima_24h,lima_48h" style="display:none;">';
@@ -51,7 +52,7 @@ class WCCDPE_Fields {
             'required' => false,
             'class'    => [ 'form-row-wide' ],
             'options'  => array_merge(
-                [ '' => '— Selecciona distrito —' ],
+                [ '' => 'Selecciona' ],
                 array_combine(
                     array_keys( WCCDPE_Data::get_lima_districts_with_prices() ),
                     array_keys( WCCDPE_Data::get_lima_districts_with_prices() )
@@ -83,7 +84,7 @@ class WCCDPE_Fields {
             'required'=> false,
             'class'   => [ 'form-row-wide' ],
             'options' => [
-                ''           => '— Selecciona —',
+                ''           => 'Selecciona',
                 'casa'       => 'Casa',
                 'apartamento'=> 'Apartamento',
                 'interior'   => 'Interior / Oficina',
@@ -101,7 +102,7 @@ class WCCDPE_Fields {
             'label'    => 'Departamento',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => '— Selecciona departamento —' ],
+            'options'  => [ '' => 'Selecciona' ],
         ], $checkout->get_value( 'billing_departamento' ) );
 
         woocommerce_form_field( 'billing_provincia', [
@@ -109,7 +110,7 @@ class WCCDPE_Fields {
             'label'    => 'Provincia',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => '— Selecciona provincia —' ],
+            'options'  => [ '' => 'Selecciona' ],
         ], $checkout->get_value( 'billing_provincia' ) );
 
         woocommerce_form_field( 'billing_distrito_prov', [
@@ -117,7 +118,7 @@ class WCCDPE_Fields {
             'label'    => 'Distrito',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => '— Selecciona distrito —' ],
+            'options'  => [ '' => 'Selecciona' ],
         ], $checkout->get_value( 'billing_distrito_prov' ) );
 
         woocommerce_form_field( 'billing_agencia_shalom', [
@@ -132,7 +133,7 @@ class WCCDPE_Fields {
             'type'    => 'radio',
             'label'   => 'Modalidad de pago del envío',
             'required'=> false,
-            'class'   => [ 'form-row-wide', 'wccdpe-radio-group', 'wccdpe-radio-inline' ],
+            'class'   => [ 'form-row-wide', 'wccdpe-radio-group' ],
             'options' => [
                 'prepago'       => 'Pago de envío en checkout (s/15)',
                 'contraentrega' => 'Pago de envío en agencia (contraentrega)',
@@ -153,7 +154,7 @@ class WCCDPE_Fields {
             'label'    => 'Departamento',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => '— Selecciona departamento —' ],
+            'options'  => [ '' => 'Selecciona' ],
         ], $checkout->get_value( 'billing_olva_departamento' ) );
 
         woocommerce_form_field( 'billing_olva_provincia', [
@@ -161,7 +162,7 @@ class WCCDPE_Fields {
             'label'    => 'Provincia',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => '— Selecciona provincia —' ],
+            'options'  => [ '' => 'Selecciona' ],
         ], $checkout->get_value( 'billing_olva_provincia' ) );
 
         woocommerce_form_field( 'billing_olva_distrito', [
@@ -169,14 +170,14 @@ class WCCDPE_Fields {
             'label'    => 'Distrito',
             'required' => false,
             'class'    => [ 'form-row-wide' ],
-            'options'  => [ '' => '— Selecciona distrito —' ],
+            'options'  => [ '' => 'Selecciona' ],
         ], $checkout->get_value( 'billing_olva_distrito' ) );
 
         woocommerce_form_field( 'billing_olva_sub_tipo', [
             'type'    => 'radio',
             'label'   => '&nbsp;',
             'required'=> false,
-            'class'   => [ 'form-row-wide', 'wccdpe-radio-group', 'wccdpe-radio-inline' ],
+            'class'   => [ 'form-row-wide', 'wccdpe-radio-group' ],
             'options' => [
                 'domicilio' => 'Envío a domicilio',
                 'agencia'   => 'Recojo en agencia Olva',
@@ -223,7 +224,7 @@ class WCCDPE_Fields {
         echo '<div class="wccdpe-group" data-show="recojo_tienda" style="display:none;">';
 
         $tiendas = WCCDPE_Data::get_tiendas();
-        $tienda_options = [ '' => '— Selecciona tienda —' ];
+        $tienda_options = [ '' => 'Selecciona' ];
         foreach ( $tiendas as $loc ) {
             $tienda_options[ $loc ] = $loc;
         }

@@ -26,7 +26,7 @@
      */
     function populateSelect($select, options, placeholder) {
         $select.empty();
-        $select.append('<option value="">' + (placeholder || '— Selecciona —') + '</option>');
+        $select.append('<option value="">' + (placeholder || 'Selecciona') + '</option>');
         $.each(options, function (key, val) {
             // If val is a string, use it as label; if object/array, key is label
             var label = typeof val === 'string' ? val : key;
@@ -53,8 +53,8 @@
 
         if (deptos.length === 0) return;
 
-        populateSelect($shaDepto, deptos, '— Selecciona departamento —');
-        populateSelect($olvaDepto, deptos, '— Selecciona departamento —');
+        populateSelect($shaDepto, deptos, 'Selecciona');
+        populateSelect($olvaDepto, deptos, 'Selecciona');
     }
 
     /**
@@ -107,13 +107,13 @@
         var $prov = $('#billing_provincia');
         var $dist = $('#billing_distrito_prov');
 
-        $dist.empty().append('<option value="">— Selecciona distrito —</option>');
+        $dist.empty().append('<option value="">Selecciona</option>');
 
         if (depto && ubigeo[depto]) {
             var provincias = Object.keys(ubigeo[depto]);
-            populateSelect($prov, provincias, '— Selecciona provincia —');
+            populateSelect($prov, provincias, 'Selecciona');
         } else {
-            $prov.empty().append('<option value="">— Selecciona provincia —</option>');
+            $prov.empty().append('<option value="">Selecciona</option>');
         }
     });
 
@@ -125,9 +125,9 @@
 
         if (depto && prov && ubigeo[depto] && ubigeo[depto][prov]) {
             var distritos = ubigeo[depto][prov];
-            populateSelect($dist, distritos, '— Selecciona distrito —');
+            populateSelect($dist, distritos, 'Selecciona');
         } else {
-            $dist.empty().append('<option value="">— Selecciona distrito —</option>');
+            $dist.empty().append('<option value="">Selecciona</option>');
         }
     });
 
@@ -148,13 +148,13 @@
         var $prov = $('#billing_olva_provincia');
         var $dist = $('#billing_olva_distrito');
 
-        $dist.empty().append('<option value="">— Selecciona distrito —</option>');
+        $dist.empty().append('<option value="">Selecciona</option>');
 
         if (depto && ubigeo[depto]) {
             var provincias = Object.keys(ubigeo[depto]);
-            populateSelect($prov, provincias, '— Selecciona provincia —');
+            populateSelect($prov, provincias, 'Selecciona');
         } else {
-            $prov.empty().append('<option value="">— Selecciona provincia —</option>');
+            $prov.empty().append('<option value="">Selecciona</option>');
         }
     });
 
@@ -166,9 +166,9 @@
 
         if (depto && prov && ubigeo[depto] && ubigeo[depto][prov]) {
             var distritos = ubigeo[depto][prov];
-            populateSelect($dist, distritos, '— Selecciona distrito —');
+            populateSelect($dist, distritos, 'Selecciona');
         } else {
-            $dist.empty().append('<option value="">— Selecciona distrito —</option>');
+            $dist.empty().append('<option value="">Selecciona</option>');
         }
     });
 
