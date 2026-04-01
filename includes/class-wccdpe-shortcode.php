@@ -133,6 +133,15 @@ class WCCDPE_Shortcode {
         $this->enqueue_assets();
         $this->enqueue_wc_checkout_assets();
 
+        // Full checkout needs update_checkout to recalculate fees
+        wp_localize_script( 'wccdpe-checkout', 'wccdpe_data', [
+            'ajax_url'       => admin_url( 'admin-ajax.php' ),
+            'nonce'          => wp_create_nonce( 'wccdpe_nonce' ),
+            'lima_districts' => WCCDPE_Data::get_lima_districts_with_prices(),
+            'ubigeo'         => WCCDPE_Data::get_ubigeo(),
+            'is_shortcode'   => false,
+        ] );
+
         $checkout = WC()->checkout();
 
         ob_start();
