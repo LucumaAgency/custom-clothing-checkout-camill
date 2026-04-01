@@ -43,8 +43,24 @@ class WCCDPE_Shortcode {
      */
     private function enqueue_wc_checkout_assets() {
         if ( ! is_null( WC()->cart ) && ! WC()->cart->is_empty() ) {
+            // Force WooCommerce to treat this as checkout page
+            add_filter( 'woocommerce_is_checkout', '__return_true' );
+
             wp_enqueue_script( 'wc-checkout' );
             wp_enqueue_script( 'wc-cart-fragments' );
+
+            // Ensure wc_checkout_params is available for wc-checkout.js
+            wp_localize_script( 'wc-checkout', 'wc_checkout_params', [
+                'ajax_url'                  => WC()->ajax_url(),
+                'wc_ajax_url'               => \WC_AJAX::get_endpoint( '%%endpoint%%' ),
+                'update_order_review_nonce' => wp_create_nonce( 'update-order-review' ),
+                'apply_coupon_nonce'        => wp_create_nonce( 'apply-coupon' ),
+                'remove_coupon_nonce'       => wp_create_nonce( 'remove-coupon' ),
+                'option_guest_checkout'     => get_option( 'woocommerce_enable_guest_checkout' ),
+                'checkout_url'              => \WC_AJAX::get_endpoint( 'checkout' ),
+                'is_checkout'               => 1,
+                'debug_mode'                => defined( 'WP_DEBUG' ) && WP_DEBUG,
+            ] );
         }
     }
 
