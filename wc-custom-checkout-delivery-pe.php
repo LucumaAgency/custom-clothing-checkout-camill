@@ -52,6 +52,19 @@ final class WC_Custom_Checkout_Delivery_PE {
 
         // Hide default shipping methods from order review (we use custom fees instead)
         add_filter( 'woocommerce_cart_needs_shipping', '__return_false' );
+
+        // Override WooCommerce review-order template with our custom table
+        add_filter( 'woocommerce_locate_template', [ $this, 'override_review_order_template' ], 10, 3 );
+    }
+
+    public function override_review_order_template( $template, $template_name, $template_path ) {
+        if ( $template_name === 'checkout/review-order.php' ) {
+            $plugin_template = WCCDPE_PLUGIN_DIR . 'templates/checkout/review-order.php';
+            if ( file_exists( $plugin_template ) ) {
+                return $plugin_template;
+            }
+        }
+        return $template;
     }
 
 }
