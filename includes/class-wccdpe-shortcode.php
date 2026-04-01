@@ -395,16 +395,16 @@ class WCCDPE_Shortcode {
             'placeholder' => 'Nombre de Agencia Shalom',
         ] );
 
-        woocommerce_form_field( 'billing_shalom_sub_tipo', [
-            'type'    => 'radio',
-            'label'   => 'Modalidad de pago del envío',
-            'required'=> false,
-            'class'   => [ 'form-row-wide', 'wccdpe-radio-group' ],
-            'options' => [
-                'prepago'       => 'Pago de envío en checkout (s/15)',
-                'contraentrega' => 'Pago de envío en agencia (contraentrega)',
-            ],
-        ] );
+        echo '<div class="wccdpe-radio-group">';
+        echo '<div class="wccdpe-radio-option">';
+        echo '<input type="radio" class="input-radio" value="prepago" name="billing_shalom_sub_tipo" id="billing_shalom_sub_tipo_prepago">';
+        echo '<label for="billing_shalom_sub_tipo_prepago">Pago de envío en checkout (s/15)</label>';
+        echo '</div>';
+        echo '<div class="wccdpe-radio-option">';
+        echo '<input type="radio" class="input-radio" value="contraentrega" name="billing_shalom_sub_tipo" id="billing_shalom_sub_tipo_contraentrega">';
+        echo '<label for="billing_shalom_sub_tipo_contraentrega">Pago de envío en agencia (contraentrega)</label>';
+        echo '</div>';
+        echo '</div>';
 
         echo '<p class="wccdpe-shalom-contraentrega-info" style="display:none;">';
         echo '<strong>Contraentrega:</strong> El costo de envío (s/15) se paga directamente en la agencia Shalom al momento de recoger el producto. El producto ya está pagado en esta compra.';
@@ -442,16 +442,16 @@ class WCCDPE_Shortcode {
             'options'     => [],
         ] );
 
-        woocommerce_form_field( 'billing_olva_sub_tipo', [
-            'type'    => 'radio',
-            'label'   => '&nbsp;',
-            'required'=> false,
-            'class'   => [ 'form-row-wide', 'wccdpe-radio-group' ],
-            'options' => [
-                'domicilio' => 'Envío a domicilio',
-                'agencia'   => 'Recojo en agencia Olva',
-            ],
-        ] );
+        echo '<div class="wccdpe-radio-group">';
+        echo '<div class="wccdpe-radio-option">';
+        echo '<input type="radio" class="input-radio" value="domicilio" name="billing_olva_sub_tipo" id="billing_olva_sub_tipo_domicilio">';
+        echo '<label for="billing_olva_sub_tipo_domicilio">Envío a domicilio</label>';
+        echo '</div>';
+        echo '<div class="wccdpe-radio-option">';
+        echo '<input type="radio" class="input-radio" value="agencia" name="billing_olva_sub_tipo" id="billing_olva_sub_tipo_agencia">';
+        echo '<label for="billing_olva_sub_tipo_agencia">Recojo en agencia Olva</label>';
+        echo '</div>';
+        echo '</div>';
 
         echo '<div class="wccdpe-olva-domicilio" style="display:none;">';
 

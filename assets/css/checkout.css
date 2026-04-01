@@ -141,26 +141,25 @@
 }
 
 /* ── Radio groups ── */
-.wccdpe-radio-group > label:first-child {
-    display: none;
+.wccdpe-radio-group {
+    margin: 10px 0;
 }
 
-.wccdpe-radio-group input[type="radio"] {
-    margin: 0 8px 0 0;
-    vertical-align: middle;
+.wccdpe-radio-option {
+    display: flex;
+    align-items: center;
+    height: 45px;
 }
 
-.wccdpe-radio-group label:not(:first-child) {
-    display: inline;
+.wccdpe-radio-option input[type="radio"] {
+    margin: 0 10px 0 0;
+    flex-shrink: 0;
+}
+
+.wccdpe-radio-option label {
     cursor: pointer;
     font-size: 14px;
-    line-height: 45px;
-    vertical-align: middle;
-}
-
-.wccdpe-radio-group label:not(:first-child)::after {
-    content: '';
-    display: block;
+    line-height: 1.4;
 }
 
 /* ── District price notice ── */
