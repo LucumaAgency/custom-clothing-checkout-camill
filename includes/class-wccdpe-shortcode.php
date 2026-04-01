@@ -181,6 +181,16 @@ class WCCDPE_Shortcode {
             'autocomplete'=> 'family-name',
         ], $checkout->get_value( 'billing_last_name' ) );
 
+        // DNI
+        woocommerce_form_field( 'billing_dni', [
+            'type'        => 'text',
+            'label'       => '&nbsp;',
+            'required'    => true,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'DNI',
+            'maxlength'   => 8,
+        ], $checkout->get_value( 'billing_dni' ) );
+
         // Teléfono
         woocommerce_form_field( 'billing_phone', [
             'type'        => 'tel',

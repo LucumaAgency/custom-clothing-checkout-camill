@@ -10,6 +10,13 @@ class WCCDPE_Validation {
     public function validate_fields() {
         $tipo = isset( $_POST['billing_tipo_entrega'] ) ? sanitize_text_field( $_POST['billing_tipo_entrega'] ) : '';
 
+        $dni = isset( $_POST['billing_dni'] ) ? sanitize_text_field( $_POST['billing_dni'] ) : '';
+        if ( empty( $dni ) ) {
+            wc_add_notice( 'Por favor ingresa tu DNI.', 'error' );
+        } elseif ( ! preg_match( '/^\d{8}$/', $dni ) ) {
+            wc_add_notice( 'El DNI debe tener 8 dígitos.', 'error' );
+        }
+
         if ( empty( $tipo ) ) {
             wc_add_notice( 'Por favor selecciona un tipo de entrega.', 'error' );
             return;
@@ -32,10 +39,6 @@ class WCCDPE_Validation {
                 }
                 if ( empty( $_POST['billing_agencia_shalom'] ) ) {
                     wc_add_notice( 'Por favor ingresa el nombre de la agencia Shalom.', 'error' );
-                }
-                $shalom_sub = isset( $_POST['billing_shalom_sub_tipo'] ) ? sanitize_text_field( $_POST['billing_shalom_sub_tipo'] ) : '';
-                if ( empty( $shalom_sub ) ) {
-                    wc_add_notice( 'Por favor selecciona la modalidad de pago del envío Shalom (prepago o contraentrega).', 'error' );
                 }
                 break;
 

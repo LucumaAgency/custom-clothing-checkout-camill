@@ -7,6 +7,7 @@ class WCCDPE_Order_Meta {
      * All custom field keys we may save.
      */
     private $meta_fields = [
+        'billing_dni',
         'billing_tipo_entrega',
         'billing_lima_distrito',
         'billing_direccion',
@@ -58,6 +59,10 @@ class WCCDPE_Order_Meta {
 
         echo '<div class="wccdpe-admin-meta">';
         echo '<h3>Datos de Entrega Personalizado</h3>';
+        $dni = get_post_meta( $order_id, '_billing_dni', true );
+        if ( $dni ) {
+            echo '<p><strong>DNI:</strong> ' . esc_html( $dni ) . '</p>';
+        }
         echo '<p><strong>Tipo de entrega:</strong> ' . esc_html( $tipo_label ) . '</p>';
 
         $display_fields = [
