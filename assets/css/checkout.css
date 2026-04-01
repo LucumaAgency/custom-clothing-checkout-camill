@@ -241,20 +241,35 @@
 
 /* Order review table */
 .wccdpe-checkout-col--order .woocommerce-checkout-review-order-table {
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     border-collapse: collapse;
     border: 1px solid #dddedf;
     margin-bottom: 0;
+    table-layout: fixed;
 }
 
 .wccdpe-checkout-col--order .woocommerce-checkout-review-order-table th,
 .wccdpe-checkout-col--order .woocommerce-checkout-review-order-table td {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #dddedf;
+    background: transparent !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 1px solid #dddedf !important;
     text-align: left;
     font-size: 14px;
-    padding: 18px 20px;
+    padding: 18px 20px !important;
+    width: auto !important;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name,
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot th {
+    width: 70% !important;
+}
+
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-total,
+.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot td {
+    width: 30% !important;
 }
 
 .wccdpe-checkout-col--order .woocommerce-checkout-review-order-table thead th {
