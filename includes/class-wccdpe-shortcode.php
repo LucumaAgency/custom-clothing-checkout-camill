@@ -395,18 +395,9 @@ class WCCDPE_Shortcode {
             'placeholder' => 'Nombre de Agencia Shalom',
         ] );
 
-        echo '<div class="wccdpe-radio-group">';
-        echo '<div class="wccdpe-radio-option">';
-        echo '<input type="radio" class="input-radio" value="prepago" name="billing_shalom_sub_tipo" id="billing_shalom_sub_tipo_prepago">';
-        echo '<label for="billing_shalom_sub_tipo_prepago">Pago de envío en checkout (s/15)</label>';
-        echo '</div>';
-        echo '<div class="wccdpe-radio-option">';
-        echo '<input type="radio" class="input-radio" value="contraentrega" name="billing_shalom_sub_tipo" id="billing_shalom_sub_tipo_contraentrega">';
-        echo '<label for="billing_shalom_sub_tipo_contraentrega">Pago de envío en agencia (contraentrega)</label>';
-        echo '</div>';
-        echo '</div>';
+        echo '<input type="hidden" name="billing_shalom_sub_tipo" value="contraentrega">';
 
-        echo '<p class="wccdpe-shalom-contraentrega-info" style="display:none;">';
+        echo '<p class="wccdpe-shalom-contraentrega-info">';
         echo '<strong>Contraentrega:</strong> El costo de envío (s/15) se paga directamente en la agencia Shalom al momento de recoger el producto. El producto ya está pagado en esta compra.';
         echo '</p>';
 
