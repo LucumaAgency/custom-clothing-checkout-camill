@@ -24,7 +24,7 @@ class WCCDPE_Shortcode {
         wp_enqueue_script(
             'wccdpe-checkout',
             WCCDPE_PLUGIN_URL . 'assets/js/checkout.js',
-            [ 'jquery' ],
+            [ 'jquery', 'wc-checkout' ],
             WCCDPE_VERSION,
             true
         );
