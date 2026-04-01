@@ -366,3 +366,21 @@
     text-align: center;
     color: #666;
 }
+
+/* ── Elementor overrides ── */
+.elementor-57331 .elementor-element.elementor-element-f9194ff {
+    padding: 0px !important;
+}
+
+.elementor-column-gap-default > .elementor-column > .elementor-element-populated {
+    padding: 0px !important;
+}
+
+.wccdpe-checkout-col--fields {
+    padding-left: 0px !important;
+}
+
+/* Solo para pc */
+.wccdpe-checkout-col-inner {
+    padding: 150px 40px;
+}
