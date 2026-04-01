@@ -370,32 +370,9 @@ class WCCDPE_Shortcode {
         // ── Provincia Shalom ──
         echo '<div class="wccdpe-group" data-show="provincia_shalom" style="display:none;">';
 
-        woocommerce_form_field( 'billing_departamento', [
-            'type'        => 'select',
-            'label'       => '&nbsp;',
-            'required'    => false,
-            'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Departamento',
-            'options'     => [],
-        ] );
-
-        woocommerce_form_field( 'billing_provincia', [
-            'type'        => 'select',
-            'label'       => '&nbsp;',
-            'required'    => false,
-            'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Provincia',
-            'options'     => [],
-        ] );
-
-        woocommerce_form_field( 'billing_distrito_prov', [
-            'type'        => 'select',
-            'label'       => '&nbsp;',
-            'required'    => false,
-            'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Distrito',
-            'options'     => [],
-        ] );
+        echo '<p class="form-row form-row-wide"><select name="billing_departamento" id="billing_departamento" class="select"><option value="">Departamento</option></select></p>';
+        echo '<p class="form-row form-row-wide"><select name="billing_provincia" id="billing_provincia" class="select"><option value="">Provincia</option></select></p>';
+        echo '<p class="form-row form-row-wide"><select name="billing_distrito_prov" id="billing_distrito_prov" class="select"><option value="">Distrito</option></select></p>';
 
         woocommerce_form_field( 'billing_agencia_shalom', [
             'type'        => 'text',
@@ -416,32 +393,9 @@ class WCCDPE_Shortcode {
         // ── Provincia Olva ──
         echo '<div class="wccdpe-group" data-show="provincia_olva" style="display:none;">';
 
-        woocommerce_form_field( 'billing_olva_departamento', [
-            'type'        => 'select',
-            'label'       => '&nbsp;',
-            'required'    => false,
-            'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Departamento',
-            'options'     => [],
-        ] );
-
-        woocommerce_form_field( 'billing_olva_provincia', [
-            'type'        => 'select',
-            'label'       => '&nbsp;',
-            'required'    => false,
-            'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Provincia',
-            'options'     => [],
-        ] );
-
-        woocommerce_form_field( 'billing_olva_distrito', [
-            'type'        => 'select',
-            'label'       => '&nbsp;',
-            'required'    => false,
-            'class'       => [ 'form-row-wide' ],
-            'placeholder' => 'Distrito',
-            'options'     => [],
-        ] );
+        echo '<p class="form-row form-row-wide"><select name="billing_olva_departamento" id="billing_olva_departamento" class="select"><option value="">Departamento</option></select></p>';
+        echo '<p class="form-row form-row-wide"><select name="billing_olva_provincia" id="billing_olva_provincia" class="select"><option value="">Provincia</option></select></p>';
+        echo '<p class="form-row form-row-wide"><select name="billing_olva_distrito" id="billing_olva_distrito" class="select"><option value="">Distrito</option></select></p>';
 
         echo '<div class="wccdpe-radio-group">';
         echo '<div class="wccdpe-radio-option">';
