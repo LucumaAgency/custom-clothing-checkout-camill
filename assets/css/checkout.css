@@ -292,6 +292,11 @@
     font-weight: 700;
 }
 
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.cart-subtotal {
+    border-bottom: none !important;
+    border-top: none !important;
+}
+
 #wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.order-total th,
 #wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.order-total td {
     font-size: 16px;
