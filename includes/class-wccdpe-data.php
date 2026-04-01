@@ -95,8 +95,12 @@ class WCCDPE_Data {
      */
     public static function get_tiendas() {
         return [
-            'Galería Damero, tienda 125 – Jr. Agustín Gamarra 939',
-            'Galería YA!, tienda 03 – Jr. Agustín Gamarra 1043',
+            'Galería El Dorado, tda. 208 – Jr. Agustín Gamarra 906',
+            'Galería Damero, tda. 103 – Jr. Agustín Gamarra 939',
+            'Galería Damero, tda. 126 – Jr. Agustín Gamarra 939',
+            'Galería Ya!, tda. 56 – Jr. Agustín Gamarra 1043',
+            'Galería San Pedro, tda. 121 – Jr. Agustín Gamarra 1160',
+            'C.C Gama, tda. 167 – Jr. Agustín Gamarra 1275',
         ];
     }
 
