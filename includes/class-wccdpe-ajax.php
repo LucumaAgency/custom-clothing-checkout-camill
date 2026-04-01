@@ -23,12 +23,6 @@ class WCCDPE_Ajax {
             return;
         }
 
-        // Verify nonce to prevent CSRF
-        $nonce = isset( $data['wccdpe_nonce'] ) ? $data['wccdpe_nonce'] : '';
-        if ( ! wp_verify_nonce( $nonce, 'wccdpe_nonce' ) ) {
-            return;
-        }
-
         $allowed_tipos = [
             'lima_24h', 'lima_48h', 'provincia_shalom_prepago', 'provincia_shalom_contra', 'provincia_olva', 'recojo_tienda',
         ];
@@ -41,13 +35,6 @@ class WCCDPE_Ajax {
 
         $distrito = isset( $data['billing_lima_distrito'] ) ? sanitize_text_field( $data['billing_lima_distrito'] ) : '';
         WC()->session->set( 'wccdpe_lima_distrito', $distrito );
-
-        $allowed_shalom = [ 'prepago', 'contraentrega' ];
-        $shalom_sub = isset( $data['billing_shalom_sub_tipo'] ) ? sanitize_text_field( $data['billing_shalom_sub_tipo'] ) : '';
-        if ( $shalom_sub !== '' && ! in_array( $shalom_sub, $allowed_shalom, true ) ) {
-            $shalom_sub = '';
-        }
-        WC()->session->set( 'wccdpe_shalom_sub_tipo', $shalom_sub );
     }
 }
 
