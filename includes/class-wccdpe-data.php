@@ -105,11 +105,12 @@ class WCCDPE_Data {
      */
     public static function get_delivery_types() {
         return [
-            'lima_24h'              => 'Lima – Delivery 24 horas',
-            'lima_48h'              => 'Lima – Delivery 48 horas',
-            'provincia_shalom'     => 'Provincia – Shalom (s/15)',
-            'provincia_olva'       => 'Provincia – Olva Courier (s/15)',
-            'recojo_tienda'        => 'Recojo en Tienda (Gratis)',
+            'lima_24h'                  => 'Lima – Delivery 24 horas',
+            'lima_48h'                  => 'Lima – Delivery 48 horas',
+            'provincia_shalom_prepago'  => 'Provincia – Shalom (Prepago)',
+            'provincia_shalom_contra'   => 'Provincia – Shalom (Contraentrega)',
+            'provincia_olva'            => 'Provincia – Olva Courier',
+            'recojo_tienda'             => 'Recojo en Tienda',
         ];
     }
 }

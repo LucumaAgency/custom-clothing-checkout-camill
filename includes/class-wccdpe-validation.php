@@ -33,7 +33,7 @@ class WCCDPE_Validation {
                 }
                 break;
 
-            case 'provincia_shalom':
+            case 'provincia_shalom_prepago':
                 if ( empty( $_POST['billing_departamento'] ) ) {
                     wc_add_notice( 'Por favor selecciona un departamento.', 'error' );
                 }
@@ -44,6 +44,21 @@ class WCCDPE_Validation {
                     wc_add_notice( 'Por favor selecciona un distrito.', 'error' );
                 }
                 if ( empty( $_POST['billing_agencia_shalom'] ) ) {
+                    wc_add_notice( 'Por favor ingresa el nombre de la agencia Shalom.', 'error' );
+                }
+                break;
+
+            case 'provincia_shalom_contra':
+                if ( empty( $_POST['billing_departamento_contra'] ) ) {
+                    wc_add_notice( 'Por favor selecciona un departamento.', 'error' );
+                }
+                if ( empty( $_POST['billing_provincia_contra'] ) ) {
+                    wc_add_notice( 'Por favor selecciona una provincia.', 'error' );
+                }
+                if ( empty( $_POST['billing_distrito_prov_contra'] ) ) {
+                    wc_add_notice( 'Por favor selecciona un distrito.', 'error' );
+                }
+                if ( empty( $_POST['billing_agencia_shalom_contra'] ) ) {
                     wc_add_notice( 'Por favor ingresa el nombre de la agencia Shalom.', 'error' );
                 }
                 break;

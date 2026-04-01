@@ -7,6 +7,7 @@
 
     var limaDistricts = wccdpe_data.lima_districts || {};
     var ubigeo = wccdpe_data.ubigeo || {};
+
     /**
      * Show/hide delivery groups based on selected tipo_entrega.
      */
@@ -28,10 +29,7 @@
         $select.empty();
         $select.append('<option value="">' + (placeholder || 'Selecciona') + '</option>');
         $.each(options, function (key, val) {
-            // If val is a string, use it as label; if object/array, key is label
-            var label = typeof val === 'string' ? val : key;
-            var value = typeof val === 'string' ? val : key;
-            // For arrays (ubigeo), key is numeric index, val is string
+            var label, value;
             if ($.isArray(options)) {
                 value = val;
                 label = val;
@@ -44,17 +42,48 @@
     }
 
     /**
-     * Populate departamento selects from ubigeo data.
+     * Generic UBIGEO cascading handler.
+     */
+    function setupUbigeoCascade(deptoId, provId, distId) {
+        // Departamento → Provincia
+        $(document).on('change', deptoId, function () {
+            var depto = $(this).val();
+            var $prov = $(provId);
+            var $dist = $(distId);
+
+            $dist.empty().append('<option value="">Distrito</option>');
+
+            if (depto && ubigeo[depto]) {
+                populateSelect($prov, Object.keys(ubigeo[depto]), 'Provincia');
+            } else {
+                $prov.empty().append('<option value="">Provincia</option>');
+            }
+        });
+
+        // Provincia → Distrito
+        $(document).on('change', provId, function () {
+            var depto = $(deptoId).val();
+            var prov = $(this).val();
+            var $dist = $(distId);
+
+            if (depto && prov && ubigeo[depto] && ubigeo[depto][prov]) {
+                populateSelect($dist, ubigeo[depto][prov], 'Distrito');
+            } else {
+                $dist.empty().append('<option value="">Distrito</option>');
+            }
+        });
+    }
+
+    /**
+     * Populate all departamento selects from ubigeo data.
      */
     function populateDepartamentos() {
         var deptos = Object.keys(ubigeo);
-        var $shaDepto = $('#billing_departamento');
-        var $olvaDepto = $('#billing_olva_departamento');
-
         if (deptos.length === 0) return;
 
-        populateSelect($shaDepto, deptos, 'Departamento');
-        populateSelect($olvaDepto, deptos, 'Departamento');
+        $('#billing_departamento, #billing_departamento_contra, #billing_olva_departamento').each(function () {
+            populateSelect($(this), deptos, 'Departamento');
+        });
     }
 
     /**
@@ -76,14 +105,16 @@
 
     var isShortcode = wccdpe_data.is_shortcode || false;
 
-    /**
-     * Trigger WooCommerce checkout update to recalculate totals.
-     */
     function triggerUpdateCheckout() {
         if ( ! isShortcode ) {
             $(document.body).trigger('update_checkout');
         }
     }
+
+    // ── UBIGEO cascading setups ──
+    setupUbigeoCascade('#billing_departamento', '#billing_provincia', '#billing_distrito_prov');
+    setupUbigeoCascade('#billing_departamento_contra', '#billing_provincia_contra', '#billing_distrito_prov_contra');
+    setupUbigeoCascade('#billing_olva_departamento', '#billing_olva_provincia', '#billing_olva_distrito');
 
     // ── Event Handlers ──
 
@@ -99,66 +130,6 @@
     $(document).on('change', '#billing_lima_distrito', function () {
         updateDistrictPrice();
         triggerUpdateCheckout();
-    });
-
-    // Shalom: Departamento → Provincia
-    $(document).on('change', '#billing_departamento', function () {
-        var depto = $(this).val();
-        var $prov = $('#billing_provincia');
-        var $dist = $('#billing_distrito_prov');
-
-        $dist.empty().append('<option value="">Distrito</option>');
-
-        if (depto && ubigeo[depto]) {
-            var provincias = Object.keys(ubigeo[depto]);
-            populateSelect($prov, provincias, 'Provincia');
-        } else {
-            $prov.empty().append('<option value="">Provincia</option>');
-        }
-    });
-
-    // Shalom: Provincia → Distrito
-    $(document).on('change', '#billing_provincia', function () {
-        var depto = $('#billing_departamento').val();
-        var prov = $(this).val();
-        var $dist = $('#billing_distrito_prov');
-
-        if (depto && prov && ubigeo[depto] && ubigeo[depto][prov]) {
-            var distritos = ubigeo[depto][prov];
-            populateSelect($dist, distritos, 'Distrito');
-        } else {
-            $dist.empty().append('<option value="">Distrito</option>');
-        }
-    });
-
-    // Olva: Departamento → Provincia
-    $(document).on('change', '#billing_olva_departamento', function () {
-        var depto = $(this).val();
-        var $prov = $('#billing_olva_provincia');
-        var $dist = $('#billing_olva_distrito');
-
-        $dist.empty().append('<option value="">Distrito</option>');
-
-        if (depto && ubigeo[depto]) {
-            var provincias = Object.keys(ubigeo[depto]);
-            populateSelect($prov, provincias, 'Provincia');
-        } else {
-            $prov.empty().append('<option value="">Provincia</option>');
-        }
-    });
-
-    // Olva: Provincia → Distrito
-    $(document).on('change', '#billing_olva_provincia', function () {
-        var depto = $('#billing_olva_departamento').val();
-        var prov = $(this).val();
-        var $dist = $('#billing_olva_distrito');
-
-        if (depto && prov && ubigeo[depto] && ubigeo[depto][prov]) {
-            var distritos = ubigeo[depto][prov];
-            populateSelect($dist, distritos, 'Distrito');
-        } else {
-            $dist.empty().append('<option value="">Distrito</option>');
-        }
     });
 
     // Olva: Sub-tipo (domicilio / agencia)
@@ -182,7 +153,6 @@
     $(document).ready(function () {
         populateDepartamentos();
 
-        // If tipo_entrega already has a value (e.g. page reload), trigger visibility
         var currentTipo = $('#billing_tipo_entrega').val();
         if (currentTipo) {
             toggleGroups(currentTipo);

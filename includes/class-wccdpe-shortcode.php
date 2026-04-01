@@ -367,8 +367,8 @@ class WCCDPE_Shortcode {
 
         echo '</div>'; // lima
 
-        // ── Provincia Shalom ──
-        echo '<div class="wccdpe-group" data-show="provincia_shalom" style="display:none;">';
+        // ── Provincia Shalom Prepago ──
+        echo '<div class="wccdpe-group" data-show="provincia_shalom_prepago" style="display:none;">';
 
         echo '<p class="form-row form-row-wide"><select name="billing_departamento" id="billing_departamento" class="select"><option value="">Departamento</option></select></p>';
         echo '<p class="form-row form-row-wide"><select name="billing_provincia" id="billing_provincia" class="select"><option value="">Provincia</option></select></p>';
@@ -382,13 +382,32 @@ class WCCDPE_Shortcode {
             'placeholder' => 'Nombre de Agencia Shalom',
         ] );
 
-        echo '<input type="hidden" name="billing_shalom_sub_tipo" value="contraentrega">';
+        echo '<input type="hidden" name="billing_shalom_sub_tipo" value="prepago">';
+
+        echo '</div>'; // shalom prepago
+
+        // ── Provincia Shalom Contraentrega ──
+        echo '<div class="wccdpe-group" data-show="provincia_shalom_contra" style="display:none;">';
+
+        echo '<p class="form-row form-row-wide"><select name="billing_departamento_contra" id="billing_departamento_contra" class="select"><option value="">Departamento</option></select></p>';
+        echo '<p class="form-row form-row-wide"><select name="billing_provincia_contra" id="billing_provincia_contra" class="select"><option value="">Provincia</option></select></p>';
+        echo '<p class="form-row form-row-wide"><select name="billing_distrito_prov_contra" id="billing_distrito_prov_contra" class="select"><option value="">Distrito</option></select></p>';
+
+        woocommerce_form_field( 'billing_agencia_shalom_contra', [
+            'type'        => 'text',
+            'label'       => '&nbsp;',
+            'required'    => false,
+            'class'       => [ 'form-row-wide' ],
+            'placeholder' => 'Nombre de Agencia Shalom',
+        ] );
+
+        echo '<input type="hidden" name="billing_shalom_sub_tipo_contra" value="contraentrega">';
 
         echo '<p class="wccdpe-shalom-contraentrega-info">';
         echo '<strong>Contraentrega:</strong> El costo de envío (s/15) se paga directamente en la agencia Shalom al momento de recoger el producto. El producto ya está pagado en esta compra.';
         echo '</p>';
 
-        echo '</div>'; // shalom
+        echo '</div>'; // shalom contra
 
         // ── Provincia Olva ──
         echo '<div class="wccdpe-group" data-show="provincia_olva" style="display:none;">';

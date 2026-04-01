@@ -39,7 +39,12 @@ class WCCDPE_Fees {
                 $label = 'Delivery Lima 48h';
                 break;
 
-            case 'provincia_shalom':
+            case 'provincia_shalom_prepago':
+                $fee = 15;
+                $label = 'Envío Provincia – Shalom';
+                break;
+
+            case 'provincia_shalom_contra':
                 $fee = 0;
                 $label = 'Envío Provincia – Shalom (pago en agencia)';
                 break;

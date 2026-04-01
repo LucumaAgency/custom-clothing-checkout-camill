@@ -30,7 +30,7 @@ class WCCDPE_Ajax {
         }
 
         $allowed_tipos = [
-            'lima_24h', 'lima_48h', 'provincia_shalom', 'provincia_olva', 'recojo_tienda',
+            'lima_24h', 'lima_48h', 'provincia_shalom_prepago', 'provincia_shalom_contra', 'provincia_olva', 'recojo_tienda',
         ];
 
         $tipo = isset( $data['billing_tipo_entrega'] ) ? sanitize_text_field( $data['billing_tipo_entrega'] ) : '';
