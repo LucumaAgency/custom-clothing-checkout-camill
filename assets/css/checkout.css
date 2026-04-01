@@ -230,7 +230,7 @@
     font-style: italic;
 }
 
-/* ── Order review column (right) ── */
+/* ── Order review ── */
 .wccdpe-order-title {
     font-size: 22px;
     font-weight: 700;
@@ -239,72 +239,103 @@
     padding: 0;
 }
 
-/* Order review table */
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-    border-spacing: 0 !important;
-    border: 1px solid #dddedf !important;
-    margin: 0 !important;
-    padding: 0 !important;
+.wccdpe-order-table-wrap {
+    border: 1px solid #dddedf;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tr {
-    width: 100% !important;
-    border-bottom: 1px solid #dddedf !important;
+.wccdpe-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0;
+    padding: 0;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table th,
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table td {
-    border: none !important;
-    padding: 16px 20px !important;
-    background: transparent !important;
+.wccdpe-order-table th,
+.wccdpe-order-table td {
+    padding: 16px 20px;
     font-size: 14px;
     color: #363636;
-    text-align: left;
+    background: transparent;
+    border: none;
     vertical-align: middle;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table thead th {
+/* Header */
+.wccdpe-order-table thead tr {
+    border-bottom: 1px solid #dddedf;
+}
+
+.wccdpe-order-table thead th {
     font-weight: 600;
     color: #555;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table th:last-child,
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table td:last-child {
-    text-align: right !important;
+.wccdpe-order-table thead th:first-child {
+    text-align: left;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-name {
-    font-weight: 400;
+.wccdpe-order-table thead th:last-child {
+    text-align: right;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-name a {
+/* Product rows */
+.wccdpe-order-table tbody tr {
+    border-bottom: 1px solid #dddedf;
+}
+
+.wccdpe-order-table tbody td:first-child {
+    text-align: left;
+}
+
+.wccdpe-order-table tbody td:last-child {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.wccdpe-order-table tbody td a {
     color: #363636;
     text-decoration: none;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-name a:hover {
+.wccdpe-order-table tbody td a:hover {
     text-decoration: underline;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-quantity {
+.wccdpe-order-table tbody td strong {
     font-weight: 700;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.cart-subtotal {
-    border-bottom: none !important;
-    border-top: none !important;
+/* Subtotal row */
+.wccdpe-order-table tfoot .wccdpe-subtotal td {
+    border: none;
+    padding-top: 18px;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.order-total th,
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.order-total td {
+/* Fee rows */
+.wccdpe-order-table tfoot .wccdpe-fee td {
+    border: none;
+    padding-top: 4px;
+}
+
+/* Total row */
+.wccdpe-order-table tfoot .wccdpe-total td {
     font-size: 16px;
     font-weight: 700;
+    border: none;
+    padding-bottom: 18px;
 }
 
-#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr:last-child {
-    border-bottom: none !important;
+/* Right-align second column in tfoot */
+.wccdpe-order-table tfoot td:first-child {
+    text-align: left;
+}
+
+.wccdpe-order-table tfoot td:last-child {
+    text-align: right;
+    white-space: nowrap;
 }
 
 /* ── Payment methods ── */
