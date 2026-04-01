@@ -101,6 +101,7 @@ class WCCDPE_Data {
             'Galería Ya!, tda. 56 – Jr. Agustín Gamarra 1043',
             'Galería San Pedro, tda. 121 – Jr. Agustín Gamarra 1160',
             'C.C Gama, tda. 167 – Jr. Agustín Gamarra 1275',
+            'C.C Estilo, tda. 211 – Jr. Agustín Gamarra 949',
         ];
     }
 
