@@ -151,12 +151,16 @@
 }
 
 .wccdpe-radio-group label:not(:first-child) {
-    display: block;
-    padding: 6px 0;
+    display: inline;
     cursor: pointer;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 45px;
     vertical-align: middle;
+}
+
+.wccdpe-radio-group label:not(:first-child)::after {
+    content: '';
+    display: block;
 }
 
 /* ── District price notice ── */
