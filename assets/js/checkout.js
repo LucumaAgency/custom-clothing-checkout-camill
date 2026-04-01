@@ -7,6 +7,7 @@
 
     var limaDistricts = wccdpe_data.lima_districts || {};
     var ubigeo = wccdpe_data.ubigeo || {};
+    var ajaxUrl = wccdpe_data.ajax_url || '';
 
     /**
      * Show/hide delivery groups based on selected tipo_entrega.
@@ -45,7 +46,6 @@
      * Generic UBIGEO cascading handler.
      */
     function setupUbigeoCascade(deptoId, provId, distId) {
-        // Departamento → Provincia
         $(document).on('change', deptoId, function () {
             var depto = $(this).val();
             var $prov = $(provId);
@@ -60,7 +60,6 @@
             }
         });
 
-        // Provincia → Distrito
         $(document).on('change', provId, function () {
             var depto = $(deptoId).val();
             var prov = $(this).val();
@@ -87,7 +86,7 @@
     }
 
     /**
-     * Update price display for Lima 24h.
+     * Update price display for Lima districts.
      */
     function updateDistrictPrice() {
         var tipo = $('#billing_tipo_entrega').val();
@@ -103,12 +102,22 @@
         }
     }
 
-    var isShortcode = wccdpe_data.is_shortcode || false;
+    /**
+     * Send AJAX to update delivery fee and refresh order review table.
+     */
+    function updateOrderReview() {
+        var tipo = $('#billing_tipo_entrega').val() || '';
+        var distrito = $('#billing_lima_distrito').val() || '';
 
-    function triggerUpdateCheckout() {
-        if ( ! isShortcode ) {
-            $(document.body).trigger('update_checkout');
-        }
+        $.post(ajaxUrl, {
+            action: 'wccdpe_update_delivery',
+            tipo: tipo,
+            distrito: distrito
+        }, function (response) {
+            if (response.success && response.data.html) {
+                $('#order_review').html(response.data.html);
+            }
+        });
     }
 
     // ── UBIGEO cascading setups ──
@@ -123,13 +132,13 @@
         var tipo = $(this).val();
         toggleGroups(tipo);
         updateDistrictPrice();
-        triggerUpdateCheckout();
+        updateOrderReview();
     });
 
     // Lima district change
     $(document).on('change', '#billing_lima_distrito', function () {
         updateDistrictPrice();
-        triggerUpdateCheckout();
+        updateOrderReview();
     });
 
     // Olva: Sub-tipo (domicilio / agencia)
@@ -146,7 +155,7 @@
 
     // Recojo: Tienda selection
     $(document).on('change', '#billing_tienda_especifica', function () {
-        triggerUpdateCheckout();
+        updateOrderReview();
     });
 
     // ── Init ──

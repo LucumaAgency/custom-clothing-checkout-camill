@@ -24,17 +24,15 @@ class WCCDPE_Shortcode {
         wp_enqueue_script(
             'wccdpe-checkout',
             WCCDPE_PLUGIN_URL . 'assets/js/checkout.js',
-            [ 'jquery', 'wc-checkout' ],
+            [ 'jquery' ],
             WCCDPE_VERSION,
             true
         );
 
         wp_localize_script( 'wccdpe-checkout', 'wccdpe_data', [
             'ajax_url'       => admin_url( 'admin-ajax.php' ),
-            'nonce'          => wp_create_nonce( 'wccdpe_nonce' ),
             'lima_districts' => WCCDPE_Data::get_lima_districts_with_prices(),
             'ubigeo'         => WCCDPE_Data::get_ubigeo(),
-            'is_shortcode'   => true,
         ] );
     }
 
@@ -43,24 +41,8 @@ class WCCDPE_Shortcode {
      */
     private function enqueue_wc_checkout_assets() {
         if ( ! is_null( WC()->cart ) && ! WC()->cart->is_empty() ) {
-            // Force WooCommerce to treat this as checkout page
             add_filter( 'woocommerce_is_checkout', '__return_true' );
-
             wp_enqueue_script( 'wc-checkout' );
-            wp_enqueue_script( 'wc-cart-fragments' );
-
-            // Ensure wc_checkout_params is available for wc-checkout.js
-            wp_localize_script( 'wc-checkout', 'wc_checkout_params', [
-                'ajax_url'                  => WC()->ajax_url(),
-                'wc_ajax_url'               => \WC_AJAX::get_endpoint( '%%endpoint%%' ),
-                'update_order_review_nonce' => wp_create_nonce( 'update-order-review' ),
-                'apply_coupon_nonce'        => wp_create_nonce( 'apply-coupon' ),
-                'remove_coupon_nonce'       => wp_create_nonce( 'remove-coupon' ),
-                'option_guest_checkout'     => get_option( 'woocommerce_enable_guest_checkout' ),
-                'checkout_url'              => \WC_AJAX::get_endpoint( 'checkout' ),
-                'is_checkout'               => 1,
-                'debug_mode'                => defined( 'WP_DEBUG' ) && WP_DEBUG,
-            ] );
         }
     }
 
@@ -148,15 +130,6 @@ class WCCDPE_Shortcode {
 
         $this->enqueue_assets();
         $this->enqueue_wc_checkout_assets();
-
-        // Full checkout needs update_checkout to recalculate fees
-        wp_localize_script( 'wccdpe-checkout', 'wccdpe_data', [
-            'ajax_url'       => admin_url( 'admin-ajax.php' ),
-            'nonce'          => wp_create_nonce( 'wccdpe_nonce' ),
-            'lima_districts' => WCCDPE_Data::get_lima_districts_with_prices(),
-            'ubigeo'         => WCCDPE_Data::get_ubigeo(),
-            'is_shortcode'   => false,
-        ] );
 
         $checkout = WC()->checkout();
 
