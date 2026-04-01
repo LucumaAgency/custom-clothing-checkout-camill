@@ -20,47 +20,50 @@ class WCCDPE_Fees {
             return;
         }
 
-        $fee = 0;
-        $label = 'Envío';
+        $fee   = null;
+        $label = '';
 
         switch ( $tipo ) {
             case 'lima_24h':
                 $distrito = WC()->session->get( 'wccdpe_lima_distrito' );
-                $prices = WCCDPE_Data::get_lima_districts_with_prices();
-                $label = 'Delivery Lima 24h';
+                $prices   = WCCDPE_Data::get_lima_districts_with_prices();
                 if ( $distrito && isset( $prices[ $distrito ] ) ) {
-                    $fee = $prices[ $distrito ];
-                    $label .= ' – ' . $distrito;
+                    $fee   = $prices[ $distrito ];
+                    $label = 'Delivery Lima 24h – ' . $distrito;
                 }
                 break;
 
             case 'lima_48h':
-                $fee = 10;
+                $distrito = WC()->session->get( 'wccdpe_lima_distrito' );
+                $fee   = 10;
                 $label = 'Delivery Lima 48h';
+                if ( $distrito ) {
+                    $label .= ' – ' . $distrito;
+                }
                 break;
 
             case 'provincia_shalom_prepago':
-                $fee = 15;
+                $fee   = 15;
                 $label = 'Envío Provincia – Shalom';
                 break;
 
             case 'provincia_shalom_contra':
-                $fee = 0;
+                $fee   = 0;
                 $label = 'Envío Provincia – Shalom (pago en agencia)';
                 break;
 
             case 'provincia_olva':
-                $fee = 15;
+                $fee   = 15;
                 $label = 'Envío Provincia – Olva Courier';
                 break;
 
             case 'recojo_tienda':
-                $fee = 0;
+                $fee   = 0;
                 $label = 'Recojo en Tienda (Gratis)';
                 break;
         }
 
-        if ( $tipo ) {
+        if ( $fee !== null ) {
             $cart->add_fee( $label, $fee, false );
         }
     }

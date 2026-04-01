@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class WCCDPE_Ajax {
 
     public function __construct() {
-        // Update session on checkout update (update_checkout triggers this)
-        add_action( 'woocommerce_checkout_update_order_review', [ $this, 'update_session_from_post' ] );
+        // Update session on checkout update — priority 1 to run before fee calculation
+        add_action( 'woocommerce_checkout_update_order_review', [ $this, 'update_session_from_post' ], 1 );
     }
 
     /**

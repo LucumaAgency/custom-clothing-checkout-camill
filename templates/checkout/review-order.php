@@ -5,21 +5,23 @@ defined( 'ABSPATH' ) || exit;
 $wccdpe_tipo  = WC()->session ? WC()->session->get( 'wccdpe_tipo_entrega', '' ) : '';
 $wccdpe_dist  = WC()->session ? WC()->session->get( 'wccdpe_lima_distrito', '' ) : '';
 $wccdpe_fee_label = '';
-$wccdpe_fee_amount = 0;
+$wccdpe_fee_amount = null;
 
 if ( $wccdpe_tipo ) {
     switch ( $wccdpe_tipo ) {
         case 'lima_24h':
             $prices = WCCDPE_Data::get_lima_districts_with_prices();
-            $wccdpe_fee_label = 'Delivery Lima 24h';
             if ( $wccdpe_dist && isset( $prices[ $wccdpe_dist ] ) ) {
                 $wccdpe_fee_amount = $prices[ $wccdpe_dist ];
-                $wccdpe_fee_label .= ' – ' . $wccdpe_dist;
+                $wccdpe_fee_label = 'Delivery Lima 24h – ' . $wccdpe_dist;
             }
             break;
         case 'lima_48h':
             $wccdpe_fee_amount = 10;
             $wccdpe_fee_label = 'Delivery Lima 48h';
+            if ( $wccdpe_dist ) {
+                $wccdpe_fee_label .= ' – ' . $wccdpe_dist;
+            }
             break;
         case 'provincia_shalom_prepago':
             $wccdpe_fee_amount = 15;
@@ -72,7 +74,7 @@ if ( $wccdpe_tipo ) {
             </tr>
             <?php endforeach; ?>
 
-            <?php if ( empty( WC()->cart->get_fees() ) && $wccdpe_fee_label ) : ?>
+            <?php if ( empty( WC()->cart->get_fees() ) && $wccdpe_fee_amount !== null && $wccdpe_fee_label ) : ?>
             <tr class="wccdpe-fee">
                 <td><?php echo esc_html( $wccdpe_fee_label ); ?></td>
                 <td><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">S/</span>&nbsp;<?php echo number_format( $wccdpe_fee_amount, 2 ); ?></bdi></span></td>
