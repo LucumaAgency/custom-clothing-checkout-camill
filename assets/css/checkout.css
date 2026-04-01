@@ -240,84 +240,63 @@
 }
 
 /* Order review table */
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table {
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table {
     width: 100% !important;
-    max-width: 100% !important;
-    border-collapse: collapse;
-    border: 1px solid #dddedf;
-    margin-bottom: 0;
-    table-layout: fixed;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    border: 1px solid #dddedf !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table th,
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table td {
-    background: transparent !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-top: none !important;
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table th,
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table td {
+    border: none !important;
     border-bottom: 1px solid #dddedf !important;
-    text-align: left;
+    padding: 16px 20px !important;
+    background: transparent !important;
     font-size: 14px;
-    padding: 18px 20px !important;
-    width: auto !important;
+    color: #363636;
+    text-align: left;
+    vertical-align: middle;
 }
 
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name,
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot th {
-    width: 70% !important;
-}
-
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-total,
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot td {
-    width: 30% !important;
-}
-
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table thead th {
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table thead th {
     font-weight: 600;
     color: #555;
 }
 
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table thead th:last-child,
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tbody td:last-child,
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot td {
-    text-align: right;
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table th:last-child,
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table td:last-child {
+    text-align: right !important;
 }
 
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tbody td {
-    color: #333;
-    vertical-align: middle;
-}
-
-/* Product name */
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name {
-    color: #333;
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-name {
     font-weight: 400;
 }
 
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name a {
-    color: #333;
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-name a {
+    color: #363636;
     text-decoration: none;
 }
 
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-name a:hover {
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-name a:hover {
     text-decoration: underline;
 }
 
-/* Quantity */
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table .product-quantity {
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table .product-quantity {
     font-weight: 700;
 }
 
-/* Subtotal & Total rows */
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot tr.order-total th,
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot tr.order-total td {
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.order-total th,
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr.order-total td {
     font-size: 16px;
     font-weight: 700;
 }
 
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot tr:last-child th,
-.wccdpe-checkout-col--order .woocommerce-checkout-review-order-table tfoot tr:last-child td {
-    border-bottom: none;
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr:last-child th,
+#wccdpe-full-checkout .shop_table.woocommerce-checkout-review-order-table tfoot tr:last-child td {
+    border-bottom: none !important;
 }
 
 /* ── Payment methods ── */
