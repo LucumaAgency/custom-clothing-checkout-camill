@@ -215,6 +215,7 @@ class WCCDPE_Shortcode {
         echo '<div class="wccdpe-checkout-col wccdpe-checkout-col--order">';
         echo '<div class="wccdpe-checkout-col-inner">';
 
+        echo '<h3 class="wccdpe-order-title">Tu Pedido</h3>';
         echo '<div id="order_review" class="woocommerce-checkout-review-order">';
         $this->output_order_review_table();
         echo '</div>';
