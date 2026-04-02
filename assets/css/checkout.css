@@ -86,18 +86,18 @@
     font-style: italic;
 }
 
-/* ── Form fields: hide labels, style inputs ── */
-#wccdpe-full-checkout .form-row label:not(.checkbox),
-#wccdpe-full-checkout .woocommerce-billing-fields label {
+/* ── Form fields: hide labels, style inputs (only billing/delivery column) ── */
+.wccdpe-checkout-col--fields .form-row label:not(.checkbox),
+.wccdpe-checkout-col--fields .woocommerce-billing-fields label {
     display: none !important;
 }
 
-#wccdpe-full-checkout input[type="text"],
-#wccdpe-full-checkout input[type="email"],
-#wccdpe-full-checkout input[type="tel"],
-#wccdpe-full-checkout input[type="number"],
-#wccdpe-full-checkout select,
-#wccdpe-full-checkout textarea {
+.wccdpe-checkout-col--fields input[type="text"],
+.wccdpe-checkout-col--fields input[type="email"],
+.wccdpe-checkout-col--fields input[type="tel"],
+.wccdpe-checkout-col--fields input[type="number"],
+.wccdpe-checkout-col--fields select,
+.wccdpe-checkout-col--fields textarea {
     border: 1px solid #dddedf !important;
     width: 100% !important;
     height: 45px !important;
@@ -106,7 +106,7 @@
     box-sizing: border-box;
 }
 
-#wccdpe-full-checkout textarea {
+.wccdpe-checkout-col--fields textarea {
     height: auto !important;
     min-height: 90px;
 }
