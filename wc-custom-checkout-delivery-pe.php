@@ -57,6 +57,9 @@ final class WC_Custom_Checkout_Delivery_PE {
         add_filter( 'woocommerce_checkout_fields', [ $this, 'remove_shipping_validation' ], 999 );
         add_filter( 'woocommerce_checkout_posted_data', [ $this, 'inject_missing_fields' ] );
 
+        // Remove MercadoPago DNI error after their validation runs
+        add_action( 'woocommerce_after_checkout_validation', [ $this, 'remove_mp_dni_error' ], 999, 2 );
+
         // Override WooCommerce review-order template with our custom table
         add_filter( 'woocommerce_locate_template', [ $this, 'override_review_order_template' ], 10, 3 );
     }
@@ -109,6 +112,34 @@ final class WC_Custom_Checkout_Delivery_PE {
         }
 
         return $data;
+    }
+
+    /**
+     * Remove MercadoPago's DNI validation error if our field has a value.
+     */
+    public function remove_mp_dni_error( $data, $errors ) {
+        $dni = isset( $_POST['billing_dni'] ) ? sanitize_text_field( $_POST['billing_dni'] ) : '';
+        if ( ! empty( $dni ) ) {
+            $errors->remove( 'billing_dni_required' );
+        }
+
+        // Also remove via notices
+        $notices = wc_get_notices( 'error' );
+        if ( ! empty( $notices ) ) {
+            $filtered = [];
+            foreach ( $notices as $notice ) {
+                $msg = is_array( $notice ) ? ( $notice['notice'] ?? '' ) : $notice;
+                if ( ! empty( $dni ) && ( stripos( $msg, 'DNI' ) !== false || stripos( $msg, 'dni' ) !== false ) ) {
+                    continue;
+                }
+                $filtered[] = $notice;
+            }
+            wc_clear_notices();
+            foreach ( $filtered as $notice ) {
+                $msg = is_array( $notice ) ? ( $notice['notice'] ?? '' ) : $notice;
+                wc_add_notice( $msg, 'error' );
+            }
+        }
     }
 
     public function override_review_order_template( $template, $template_name, $template_path ) {
