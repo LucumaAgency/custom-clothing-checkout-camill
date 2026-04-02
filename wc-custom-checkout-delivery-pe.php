@@ -54,15 +54,12 @@ final class WC_Custom_Checkout_Delivery_PE {
         add_filter( 'woocommerce_cart_needs_shipping', '__return_false' );
 
         // Remove shipping fields validation and make MP fields optional
-        add_filter( 'woocommerce_checkout_fields', [ $this, 'remove_shipping_validation' ], 999 );
+        add_filter( 'woocommerce_checkout_fields', [ $this, 'remove_shipping_validation' ], PHP_INT_MAX );
         add_filter( 'woocommerce_checkout_posted_data', [ $this, 'inject_missing_fields' ] );
 
-        // Remove MercadoPago DNI error after their validation runs
-        add_action( 'woocommerce_after_checkout_validation', [ $this, 'remove_mp_dni_error' ], 999, 2 );
-
-        // DEBUG: Log all checkout fields, POST data, errors
-        add_action( 'woocommerce_checkout_process', [ $this, 'debug_checkout_process' ], 1 );
-        add_action( 'woocommerce_after_checkout_validation', [ $this, 'debug_after_validation' ], 1000, 2 );
+        // Sync billing_dni → billing_wooccm9 and remove its validation error
+        add_action( 'woocommerce_checkout_process', [ $this, 'sync_dni_to_wooccm' ], 1 );
+        add_action( 'woocommerce_after_checkout_validation', [ $this, 'remove_wooccm_dni_error' ], 999, 2 );
 
         // Override WooCommerce review-order template with our custom table
         add_filter( 'woocommerce_locate_template', [ $this, 'override_review_order_template' ], 10, 3 );
@@ -119,104 +116,21 @@ final class WC_Custom_Checkout_Delivery_PE {
     }
 
     /**
-     * Remove MercadoPago's DNI validation error if our field has a value.
+     * Copy billing_dni to billing_wooccm9 before validation.
      */
-    public function remove_mp_dni_error( $data, $errors ) {
-        $dni = isset( $_POST['billing_dni'] ) ? sanitize_text_field( $_POST['billing_dni'] ) : '';
-        if ( ! empty( $dni ) ) {
-            $errors->remove( 'billing_dni_required' );
-        }
-
-        // Also remove via notices
-        $notices = wc_get_notices( 'error' );
-        if ( ! empty( $notices ) ) {
-            $filtered = [];
-            foreach ( $notices as $notice ) {
-                $msg = is_array( $notice ) ? ( $notice['notice'] ?? '' ) : $notice;
-                if ( ! empty( $dni ) && ( stripos( $msg, 'DNI' ) !== false || stripos( $msg, 'dni' ) !== false ) ) {
-                    continue;
-                }
-                $filtered[] = $notice;
-            }
-            wc_clear_notices();
-            foreach ( $filtered as $notice ) {
-                $msg = is_array( $notice ) ? ( $notice['notice'] ?? '' ) : $notice;
-                wc_add_notice( $msg, 'error' );
-            }
+    public function sync_dni_to_wooccm() {
+        if ( ! empty( $_POST['billing_dni'] ) && empty( $_POST['billing_wooccm9'] ) ) {
+            $_POST['billing_wooccm9'] = sanitize_text_field( $_POST['billing_dni'] );
         }
     }
 
     /**
-     * DEBUG: Log checkout data at start of process.
+     * Remove wooccm9 (DNI) validation error if our field has a value.
      */
-    public function debug_checkout_process() {
-        $log = "\n\n===== CHECKOUT DEBUG " . date( 'Y-m-d H:i:s' ) . " =====\n";
-
-        // All POST data (billing fields)
-        $log .= "\n-- POST billing_* fields --\n";
-        foreach ( $_POST as $key => $val ) {
-            if ( strpos( $key, 'billing_' ) === 0 || strpos( $key, 'shipping_' ) === 0 ) {
-                $log .= "  {$key} = " . sanitize_text_field( $val ) . "\n";
-            }
+    public function remove_wooccm_dni_error( $data, $errors ) {
+        if ( ! empty( $_POST['billing_dni'] ) ) {
+            $errors->remove( 'billing_wooccm9_required' );
         }
-
-        // Registered checkout fields from WooCommerce
-        $log .= "\n-- WC registered checkout fields (billing) --\n";
-        $checkout = WC()->checkout();
-        $fields = $checkout->get_checkout_fields( 'billing' );
-        foreach ( $fields as $key => $field ) {
-            $req = ! empty( $field['required'] ) ? 'REQUIRED' : 'optional';
-            $label = isset( $field['label'] ) ? $field['label'] : '(no label)';
-            $log .= "  {$key} [{$req}] label: {$label}\n";
-        }
-
-        $log .= "\n-- WC registered checkout fields (shipping) --\n";
-        $sfields = $checkout->get_checkout_fields( 'shipping' );
-        if ( $sfields ) {
-            foreach ( $sfields as $key => $field ) {
-                $req = ! empty( $field['required'] ) ? 'REQUIRED' : 'optional';
-                $log .= "  {$key} [{$req}]\n";
-            }
-        } else {
-            $log .= "  (no shipping fields)\n";
-        }
-
-        // Current error notices
-        $log .= "\n-- Existing error notices at process start --\n";
-        $notices = wc_get_notices( 'error' );
-        foreach ( $notices as $n ) {
-            $msg = is_array( $n ) ? ( $n['notice'] ?? json_encode( $n ) ) : $n;
-            $log .= "  ERROR: {$msg}\n";
-        }
-
-        file_put_contents( WCCDPE_PLUGIN_DIR . 'debug.log', $log, FILE_APPEND );
-    }
-
-    /**
-     * DEBUG: Log errors after all validation.
-     */
-    public function debug_after_validation( $data, $errors ) {
-        $log = "\n-- After validation (priority 1000) --\n";
-
-        // WP_Error codes
-        $log .= "WP_Error codes: " . implode( ', ', $errors->get_error_codes() ) . "\n";
-        foreach ( $errors->get_error_codes() as $code ) {
-            foreach ( $errors->get_error_messages( $code ) as $msg ) {
-                $log .= "  [{$code}] {$msg}\n";
-            }
-        }
-
-        // WC notices
-        $notices = wc_get_notices( 'error' );
-        $log .= "WC error notices (" . count( $notices ) . "):\n";
-        foreach ( $notices as $n ) {
-            $msg = is_array( $n ) ? ( $n['notice'] ?? json_encode( $n ) ) : $n;
-            $log .= "  NOTICE: {$msg}\n";
-        }
-
-        $log .= "===== END DEBUG =====\n";
-
-        file_put_contents( WCCDPE_PLUGIN_DIR . 'debug.log', $log, FILE_APPEND );
     }
 
     public function override_review_order_template( $template, $template_name, $template_path ) {
