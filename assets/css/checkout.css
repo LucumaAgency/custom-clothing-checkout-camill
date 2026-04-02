@@ -406,6 +406,82 @@
     color: #666;
 }
 
+/* ── Thank you page ── */
+.wccdpe-thank-you {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.wccdpe-thank-you-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.wccdpe-thank-you-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 10px;
+}
+
+.wccdpe-thank-you-header p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.wccdpe-thank-you .wccdpe-order-details,
+.wccdpe-thank-you .wccdpe-order-items,
+.wccdpe-thank-you .wccdpe-order-delivery {
+    margin-bottom: 25px;
+}
+
+.wccdpe-thank-you h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 12px;
+}
+
+.wccdpe-thank-you .wccdpe-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #dddedf;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.wccdpe-thank-you .wccdpe-order-table th,
+.wccdpe-thank-you .wccdpe-order-table td {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #363636;
+    border-bottom: 1px solid #dddedf;
+    text-align: left;
+}
+
+.wccdpe-thank-you .wccdpe-order-table th {
+    font-weight: 600;
+    color: #555;
+}
+
+.wccdpe-thank-you .wccdpe-order-table td:last-child,
+.wccdpe-thank-you .wccdpe-order-table th:last-child {
+    text-align: right;
+}
+
+.wccdpe-thank-you .wccdpe-order-table tr:last-child td,
+.wccdpe-thank-you .wccdpe-order-table tr:last-child th {
+    border-bottom: none;
+}
+
+.wccdpe-thank-you .wccdpe-order-delivery p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #363636;
+}
+
 /* ── Elementor overrides ── */
 .elementor-57331 .elementor-element.elementor-element-f9194ff {
     padding: 0px !important;

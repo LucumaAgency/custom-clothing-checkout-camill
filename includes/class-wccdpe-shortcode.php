@@ -138,6 +138,83 @@ class WCCDPE_Shortcode {
             return '<p>WooCommerce es requerido.</p>';
         }
 
+        // Handle order-received (thank you) page
+        global $wp;
+        if ( isset( $wp->query_vars['order-received'] ) ) {
+            $order_id = absint( $wp->query_vars['order-received'] );
+            $order    = wc_get_order( $order_id );
+
+            ob_start();
+            echo '<div class="woocommerce wccdpe-thank-you">';
+
+            if ( $order ) {
+                wc_print_notices();
+                echo '<div class="wccdpe-thank-you-header">';
+                echo '<h2>¡Gracias por tu compra!</h2>';
+                echo '<p>Tu pedido ha sido recibido y está siendo procesado.</p>';
+                echo '</div>';
+
+                echo '<div class="wccdpe-order-details">';
+                echo '<h3>Detalles del pedido</h3>';
+                echo '<table class="wccdpe-order-table">';
+                echo '<tr><td><strong>Número de pedido:</strong></td><td>#' . esc_html( $order->get_order_number() ) . '</td></tr>';
+                echo '<tr><td><strong>Fecha:</strong></td><td>' . esc_html( wc_format_datetime( $order->get_date_created() ) ) . '</td></tr>';
+                echo '<tr><td><strong>Email:</strong></td><td>' . esc_html( $order->get_billing_email() ) . '</td></tr>';
+                echo '<tr><td><strong>Total:</strong></td><td>' . wp_kses_post( $order->get_formatted_order_total() ) . '</td></tr>';
+                echo '<tr><td><strong>Método de pago:</strong></td><td>' . esc_html( $order->get_payment_method_title() ) . '</td></tr>';
+                echo '</table>';
+                echo '</div>';
+
+                // Show order items
+                echo '<div class="wccdpe-order-items">';
+                echo '<h3>Productos</h3>';
+                echo '<table class="wccdpe-order-table">';
+                echo '<thead><tr><th>Producto</th><th>Total</th></tr></thead><tbody>';
+                foreach ( $order->get_items() as $item ) {
+                    echo '<tr>';
+                    echo '<td>' . esc_html( $item->get_name() ) . ' <strong>&times;' . esc_html( $item->get_quantity() ) . '</strong></td>';
+                    echo '<td>' . wp_kses_post( $order->get_formatted_line_subtotal( $item ) ) . '</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody></table>';
+                echo '</div>';
+
+                // Delivery info
+                $tipo = get_post_meta( $order_id, '_billing_tipo_entrega', true );
+                if ( $tipo ) {
+                    $labels = WCCDPE_Data::get_delivery_types();
+                    echo '<div class="wccdpe-order-delivery">';
+                    echo '<h3>Información de entrega</h3>';
+                    echo '<p><strong>Tipo:</strong> ' . esc_html( isset( $labels[ $tipo ] ) ? $labels[ $tipo ] : $tipo ) . '</p>';
+
+                    $tienda = get_post_meta( $order_id, '_billing_tienda_especifica', true );
+                    if ( $tienda ) {
+                        echo '<p><strong>Tienda:</strong> ' . esc_html( $tienda ) . '</p>';
+                    }
+
+                    $dir = get_post_meta( $order_id, '_billing_direccion', true );
+                    if ( $dir ) {
+                        echo '<p><strong>Dirección:</strong> ' . esc_html( $dir ) . '</p>';
+                    }
+
+                    $agencia = get_post_meta( $order_id, '_billing_agencia_shalom', true );
+                    if ( ! $agencia ) {
+                        $agencia = get_post_meta( $order_id, '_billing_agencia_shalom_contra', true );
+                    }
+                    if ( $agencia ) {
+                        echo '<p><strong>Agencia:</strong> ' . esc_html( $agencia ) . '</p>';
+                    }
+                    echo '</div>';
+                }
+
+            } else {
+                echo '<p>Pedido no encontrado.</p>';
+            }
+
+            echo '</div>';
+            return ob_get_clean();
+        }
+
         if ( is_null( WC()->cart ) || WC()->cart->is_empty() ) {
             return '<div class="woocommerce wccdpe-empty-cart">
                 <p>Tu carrito est&aacute; vac&iacute;o. Agrega productos antes de continuar.</p>
