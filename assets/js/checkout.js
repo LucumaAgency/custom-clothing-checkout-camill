@@ -141,6 +141,14 @@
         updateOrderReview();
     });
 
+    // Sync billing_address_1 hidden field with actual address inputs
+    $(document).on('change keyup', '#billing_direccion, #billing_olva_direccion', function () {
+        var val = $(this).val();
+        if (val) {
+            $('#billing_address_1').val(val);
+        }
+    });
+
     // Olva: Sub-tipo (domicilio / agencia)
     $(document).on('change', 'input[name="billing_olva_sub_tipo"]', function () {
         var val = $(this).val();

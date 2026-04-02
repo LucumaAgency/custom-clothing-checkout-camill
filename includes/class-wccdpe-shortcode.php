@@ -42,7 +42,24 @@ class WCCDPE_Shortcode {
     private function enqueue_wc_checkout_assets() {
         if ( ! is_null( WC()->cart ) && ! WC()->cart->is_empty() ) {
             add_filter( 'woocommerce_is_checkout', '__return_true' );
+
             wp_enqueue_script( 'wc-checkout' );
+
+            // MercadoPago and wc-checkout need these params
+            if ( ! wp_script_is( 'wc-checkout', 'localized' ) ) {
+                wp_localize_script( 'wc-checkout', 'wc_checkout_params', apply_filters( 'wc_checkout_params', [
+                    'ajax_url'                  => WC()->ajax_url(),
+                    'wc_ajax_url'               => \WC_AJAX::get_endpoint( '%%endpoint%%' ),
+                    'update_order_review_nonce'  => wp_create_nonce( 'update-order-review' ),
+                    'apply_coupon_nonce'         => wp_create_nonce( 'apply-coupon' ),
+                    'remove_coupon_nonce'        => wp_create_nonce( 'remove-coupon' ),
+                    'option_guest_checkout'      => get_option( 'woocommerce_enable_guest_checkout' ),
+                    'checkout_url'               => \WC_AJAX::get_endpoint( 'checkout' ),
+                    'is_checkout'                => 1,
+                    'debug_mode'                 => defined( 'WP_DEBUG' ) && WP_DEBUG,
+                    'i18n_checkout_error'        => esc_attr__( 'Error processing checkout. Please try again.', 'woocommerce' ),
+                ] ) );
+            }
         }
     }
 
@@ -200,6 +217,13 @@ class WCCDPE_Shortcode {
         ], $checkout->get_value( 'billing_phone' ) );
 
         echo '</div>';
+
+        // Hidden billing fields required by MercadoPago
+        echo '<input type="hidden" name="billing_country" value="PE">';
+        echo '<input type="hidden" name="billing_state" value="LIM">';
+        echo '<input type="hidden" name="billing_city" value="Lima">';
+        echo '<input type="hidden" name="billing_postcode" value="15001">';
+        echo '<input type="hidden" name="billing_address_1" id="billing_address_1" value="—">';
 
         // Tipo de entrega (justo después de teléfono)
         $this->output_delivery_fields();
