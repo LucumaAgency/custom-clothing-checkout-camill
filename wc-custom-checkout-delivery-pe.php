@@ -54,7 +54,7 @@ final class WC_Custom_Checkout_Delivery_PE {
         add_filter( 'woocommerce_cart_needs_shipping', '__return_false' );
 
         // Remove shipping fields validation and make MP fields optional
-        add_filter( 'woocommerce_checkout_fields', [ $this, 'remove_shipping_validation' ], 99 );
+        add_filter( 'woocommerce_checkout_fields', [ $this, 'remove_shipping_validation' ], 999 );
         add_filter( 'woocommerce_checkout_posted_data', [ $this, 'inject_missing_fields' ] );
 
         // Override WooCommerce review-order template with our custom table
@@ -65,19 +65,15 @@ final class WC_Custom_Checkout_Delivery_PE {
         // Remove all shipping fields
         unset( $fields['shipping'] );
 
-        // Make any billing fields added by MercadoPago not required
-        $make_optional = [
-            'billing_state', 'billing_city', 'billing_postcode',
-            'billing_address_1', 'billing_country', 'billing_dni',
-            'shipping_state', 'shipping_city', 'shipping_postcode',
-            'shipping_address_1', 'shipping_country',
-        ];
-        foreach ( $make_optional as $key ) {
-            if ( isset( $fields['billing'][ $key ] ) ) {
-                $fields['billing'][ $key ]['required'] = false;
-            }
-            if ( isset( $fields['shipping'][ $key ] ) ) {
-                $fields['shipping'][ $key ]['required'] = false;
+        // Make ALL billing fields added by MercadoPago/WooCommerce not required
+        // (we handle our own validation in WCCDPE_Validation)
+        if ( isset( $fields['billing'] ) ) {
+            foreach ( $fields['billing'] as $key => &$field ) {
+                // Keep only our rendered fields as required
+                $our_fields = [ 'billing_email', 'billing_first_name', 'billing_last_name', 'billing_phone' ];
+                if ( ! in_array( $key, $our_fields, true ) ) {
+                    $field['required'] = false;
+                }
             }
         }
 
