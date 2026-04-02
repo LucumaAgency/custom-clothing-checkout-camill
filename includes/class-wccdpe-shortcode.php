@@ -225,6 +225,14 @@ class WCCDPE_Shortcode {
         echo '<input type="hidden" name="billing_postcode" value="15001">';
         echo '<input type="hidden" name="billing_address_1" id="billing_address_1" value="—">';
 
+        // Hidden shipping fields required by MercadoPago
+        echo '<input type="hidden" name="shipping_country" value="PE">';
+        echo '<input type="hidden" name="shipping_state" value="LIM">';
+        echo '<input type="hidden" name="shipping_city" value="Lima">';
+        echo '<input type="hidden" name="shipping_postcode" value="15001">';
+        echo '<input type="hidden" name="shipping_address_1" value="—">';
+        echo '<input type="hidden" name="ship_to_different_address" value="0">';
+
         // Tipo de entrega (justo después de teléfono)
         $this->output_delivery_fields();
 
