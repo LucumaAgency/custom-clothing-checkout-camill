@@ -88,17 +88,81 @@ final class WC_Custom_Checkout_Delivery_PE {
      * Inject default values for fields MercadoPago expects but we don't render.
      */
     public function inject_missing_fields( $data ) {
+        $tipo = isset( $_POST['billing_tipo_entrega'] ) ? sanitize_text_field( $_POST['billing_tipo_entrega'] ) : '';
+
+        // Build a human-readable billing address based on the delivery type the
+        // customer actually selected, so the WooCommerce admin order page shows
+        // the real delivery destination instead of a placeholder "—".
+        $address  = '';
+        $city     = 'Lima';
+        $state    = 'LIM';
+
+        switch ( $tipo ) {
+            case 'lima_24h':
+            case 'lima_48h':
+                $address = isset( $_POST['billing_direccion'] ) ? sanitize_text_field( $_POST['billing_direccion'] ) : '';
+                $ref     = isset( $_POST['billing_referencia'] ) ? sanitize_text_field( $_POST['billing_referencia'] ) : '';
+                if ( $ref ) {
+                    $address = trim( $address . ' (Ref: ' . $ref . ')' );
+                }
+                $city = isset( $_POST['billing_lima_distrito'] ) ? sanitize_text_field( $_POST['billing_lima_distrito'] ) : 'Lima';
+                break;
+
+            case 'provincia_shalom_prepago':
+                $agencia = isset( $_POST['billing_agencia_shalom'] ) ? sanitize_text_field( $_POST['billing_agencia_shalom'] ) : '';
+                $address = 'Agencia Shalom: ' . $agencia;
+                $city    = isset( $_POST['billing_distrito_prov'] ) ? sanitize_text_field( $_POST['billing_distrito_prov'] ) : '';
+                $state   = isset( $_POST['billing_departamento'] ) ? sanitize_text_field( $_POST['billing_departamento'] ) : '';
+                break;
+
+            case 'provincia_shalom_contra':
+                $agencia = isset( $_POST['billing_agencia_shalom_contra'] ) ? sanitize_text_field( $_POST['billing_agencia_shalom_contra'] ) : '';
+                $address = 'Agencia Shalom (contraentrega): ' . $agencia;
+                $city    = isset( $_POST['billing_distrito_prov_contra'] ) ? sanitize_text_field( $_POST['billing_distrito_prov_contra'] ) : '';
+                $state   = isset( $_POST['billing_departamento_contra'] ) ? sanitize_text_field( $_POST['billing_departamento_contra'] ) : '';
+                break;
+
+            case 'provincia_olva':
+                $sub = isset( $_POST['billing_olva_sub_tipo'] ) ? sanitize_text_field( $_POST['billing_olva_sub_tipo'] ) : '';
+                if ( $sub === 'domicilio' ) {
+                    $dir = isset( $_POST['billing_olva_direccion'] ) ? sanitize_text_field( $_POST['billing_olva_direccion'] ) : '';
+                    $ref = isset( $_POST['billing_olva_referencia'] ) ? sanitize_text_field( $_POST['billing_olva_referencia'] ) : '';
+                    $address = $ref ? trim( $dir . ' (Ref: ' . $ref . ')' ) : $dir;
+                } else {
+                    $ag = isset( $_POST['billing_olva_agencia_nombre'] ) ? sanitize_text_field( $_POST['billing_olva_agencia_nombre'] ) : '';
+                    $address = 'Agencia Olva: ' . $ag;
+                }
+                $city  = isset( $_POST['billing_olva_distrito'] ) ? sanitize_text_field( $_POST['billing_olva_distrito'] ) : '';
+                $state = isset( $_POST['billing_olva_departamento'] ) ? sanitize_text_field( $_POST['billing_olva_departamento'] ) : '';
+                break;
+
+            case 'recojo_tienda':
+                $tienda = isset( $_POST['billing_tienda_especifica'] ) ? sanitize_text_field( $_POST['billing_tienda_especifica'] ) : '';
+                $address = 'Recojo en tienda: ' . $tienda;
+                break;
+        }
+
+        if ( empty( $address ) ) {
+            $address = '—';
+        }
+        if ( empty( $state ) ) {
+            $state = 'LIM';
+        }
+        if ( empty( $city ) ) {
+            $city = 'Lima';
+        }
+
         $defaults = [
             'billing_country'    => 'PE',
-            'billing_state'      => 'LIM',
-            'billing_city'       => 'Lima',
+            'billing_state'      => $state,
+            'billing_city'       => $city,
             'billing_postcode'   => '15001',
-            'billing_address_1'  => isset( $_POST['billing_direccion'] ) && $_POST['billing_direccion'] ? sanitize_text_field( $_POST['billing_direccion'] ) : '—',
+            'billing_address_1'  => $address,
             'shipping_country'   => 'PE',
-            'shipping_state'     => 'LIM',
-            'shipping_city'      => 'Lima',
+            'shipping_state'     => $state,
+            'shipping_city'      => $city,
             'shipping_postcode'  => '15001',
-            'shipping_address_1' => '—',
+            'shipping_address_1' => $address,
         ];
 
         // Inject billing_dni from our custom field
@@ -106,8 +170,14 @@ final class WC_Custom_Checkout_Delivery_PE {
             $data['billing_dni'] = sanitize_text_field( $_POST['billing_dni'] );
         }
 
+        // Force-override address/state/city fields: the shortcode posts
+        // hardcoded hidden inputs ("—", "LIM", "Lima") that would otherwise win.
+        $force_override = [
+            'billing_address_1', 'billing_state', 'billing_city',
+            'shipping_address_1', 'shipping_state', 'shipping_city',
+        ];
         foreach ( $defaults as $key => $val ) {
-            if ( empty( $data[ $key ] ) ) {
+            if ( in_array( $key, $force_override, true ) || empty( $data[ $key ] ) ) {
                 $data[ $key ] = $val;
             }
         }

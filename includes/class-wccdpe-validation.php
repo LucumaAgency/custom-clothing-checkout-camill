@@ -67,6 +67,12 @@ class WCCDPE_Validation {
                 if ( empty( $_POST['billing_olva_departamento'] ) ) {
                     wc_add_notice( 'Por favor selecciona un departamento.', 'error' );
                 }
+                if ( empty( $_POST['billing_olva_provincia'] ) ) {
+                    wc_add_notice( 'Por favor selecciona una provincia.', 'error' );
+                }
+                if ( empty( $_POST['billing_olva_distrito'] ) ) {
+                    wc_add_notice( 'Por favor selecciona un distrito.', 'error' );
+                }
                 $sub = isset( $_POST['billing_olva_sub_tipo'] ) ? sanitize_text_field( $_POST['billing_olva_sub_tipo'] ) : '';
                 if ( empty( $sub ) ) {
                     wc_add_notice( 'Por favor selecciona si deseas envío a domicilio o recojo en agencia Olva.', 'error' );

@@ -15,7 +15,12 @@ class WCCDPE_Fees {
             return;
         }
 
-        $tipo = WC()->session->get( 'wccdpe_tipo_entrega' );
+        // Prefer $_POST (actual submitted form) over session, which can lag
+        // behind when the user changes selection without triggering an AJAX update.
+        $tipo = isset( $_POST['billing_tipo_entrega'] ) && $_POST['billing_tipo_entrega'] !== ''
+            ? sanitize_text_field( $_POST['billing_tipo_entrega'] )
+            : WC()->session->get( 'wccdpe_tipo_entrega' );
+
         if ( ! $tipo ) {
             return;
         }
@@ -25,7 +30,9 @@ class WCCDPE_Fees {
 
         switch ( $tipo ) {
             case 'lima_24h':
-                $distrito = WC()->session->get( 'wccdpe_lima_distrito' );
+                $distrito = isset( $_POST['billing_lima_distrito'] ) && $_POST['billing_lima_distrito'] !== ''
+                    ? sanitize_text_field( $_POST['billing_lima_distrito'] )
+                    : WC()->session->get( 'wccdpe_lima_distrito' );
                 $prices   = WCCDPE_Data::get_lima_districts_with_prices();
                 if ( $distrito && isset( $prices[ $distrito ] ) ) {
                     $fee   = $prices[ $distrito ];
@@ -34,7 +41,9 @@ class WCCDPE_Fees {
                 break;
 
             case 'lima_48h':
-                $distrito = WC()->session->get( 'wccdpe_lima_distrito' );
+                $distrito = isset( $_POST['billing_lima_distrito'] ) && $_POST['billing_lima_distrito'] !== ''
+                    ? sanitize_text_field( $_POST['billing_lima_distrito'] )
+                    : WC()->session->get( 'wccdpe_lima_distrito' );
                 $fee   = 10;
                 $label = 'Delivery Lima 48h';
                 if ( $distrito ) {
